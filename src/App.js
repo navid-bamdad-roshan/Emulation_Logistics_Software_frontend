@@ -1,23 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
 
+import LeftMenu from './components/LeftMenu'
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container-fluid">
+      <LeftMenu></LeftMenu>
+      <div class="main-content" id="panel">
+        <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+          <button className="btn btn-lg btn-primary">
+
+          </button>
+        </nav>
+      </div>
+      
     </div>
   );
 }
