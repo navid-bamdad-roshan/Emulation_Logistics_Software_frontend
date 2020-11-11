@@ -22,7 +22,7 @@ class LeftMenu extends Component {
                   <li className="nav-item">
                     <a href="dashboard.html" className="list-group-item list-group-item-action flex-column align-items-start active">
                       <div className="d-flex w-100 justify-content-start align-items-center">
-                        <i className="ni ni-tv-2 mr-3" aria-hidden="true"></i>
+                        <i className="fa fa-tv mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Dashboard</span>
                       </div>
                     </a>
