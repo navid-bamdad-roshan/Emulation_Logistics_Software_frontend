@@ -7,15 +7,16 @@
 import {NonEditableDetailsElement, InputDetailsElement} from './DetailsElementCard/DetailsElement';
 
 // props: cardTitle, cardElements
-// cardElements: Array of( ex:{"title":"First Name", "value":"John", "id":"first-name", "colSize":"6"} )
+// cardElements: Array of( ex:{"title":"First Name", "value":"John", "id":"first-name", "colSize":"col-lg-6", "inputType":"text"} )
 function EditableDetailsCardWithModal(props){
 
-    // var detailElements = [{"title":"First Name", "value":"John", "id":"first-name", "colSize":"6"},
-    //                         {"title":"Last Name", "value":"Snow", "id":"last-name", "colSize":"6"},
-    //                         {"title":"Email", "value":"person@people.com", "id":"email", "colSize":"6"},
-    //                         {"title":"Phone", "value":"+987654321", "id":"phone", "colSize":"6"},
-    //                         {"title":"Customer ID", "value":"c_1234", "id":"id", "colSize":"6"},
-    //                     ]
+
+    // var customerDetailsElements = [{"title":"First Name", "value":"John", "id":"first-name", "colSize":"col-lg-6", "inputType":"text"},
+    //                                 {"title":"Last Name", "value":"Snow", "id":"last-name", "colSize":"col-lg-6", "inputType":"text"},
+    //                                 {"title":"Email", "value":"person@people.com", "id":"email", "colSize":"col-lg-6", "inputType":"email"},
+    //                                 {"title":"Phone", "value":"+987654321", "id":"phone", "colSize":"col-lg-6", "inputType":"tel"},
+    //                                 {"title":"Customer ID", "value":"c_1234", "id":"id", "colSize":"col-lg-6", "inputType":"text"},
+    // ]
 
     return(
         <dev>
@@ -78,6 +79,52 @@ function EditableDetailsCardWithModal(props){
 }
 
 
+// props: cardTitle, cardElements
+// cardElements: Array of( ex:{"title":"Customer ID", "value":"", "id":"customer-id", "colSize":"col-md-6", "inputType":"text"} )
+function FilterDetailsCard(props){
+
+    // var filterElements = [{"title":"Customer ID", "value":"", "id":"customer-id", "colSize":"col-md-6", "inputType":"text"},
+    //                         {"title":"Name", "value":"", "id":"name", "colSize":"col-md-6", "inputType":"text"},
+    //                         {"title":"Country", "value":"", "id":"country", "colSize":"col-md-6", "inputType":"text"},
+    //                         {"title":"City", "value":"", "id":"city", "colSize":"col-md-6", "inputType":"text"},
+    // ]
+
+
+    return(
+        <div className="card">
+            <div className="card-header border-0">
+                <div className="row align-items-center">
+                    <div className="col">
+                        <h3 className="mb-0">{props.cardTitle}</h3>
+                    </div>
+                </div>
+            </div>
+            <div className="card-body">
+                <form>
+                    <div className="row justify-content-center">
+                        
+                        {props.cardElements.map(element=>(
+                            <InputDetailsElement title={element.title} value={element.value} id={element.id} colSize={element.colSize} inputType={props.inputType}/>
+                        ))}
+
+                        {/* Search button */}
+                        <div className="col-md-12 d-flex justify-content-end">
+                            {/* <label> </label> */}
+                            <div className="text-center">
+                                <button type="button" className="btn btn-primary">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+
 export{
-    EditableDetailsCardWithModal
+    EditableDetailsCardWithModal,
+    FilterDetailsCard
 }

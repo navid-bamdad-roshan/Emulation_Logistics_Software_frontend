@@ -11,6 +11,8 @@ import SearchBarHeader from './components/layouts/SearchBarHeader';
 
 // Import pages
 import ViewSingleCustomer from './components/pages/ViewSingleCustomer';
+import ViewCustomers from './components/pages/ViewCustomers';
+import Footer from './components/layouts/Footer';
 
 
 class App extends Component{
@@ -25,12 +27,21 @@ class App extends Component{
       <React.Fragment>
         <LeftMenu></LeftMenu>
         <div class="main-content" id="panel">
-          <SearchBarHeader></SearchBarHeader>
-          <Header></Header>
+          <SearchBarHeader/>
+          <Header/>
+          
+          <div className='mt--6'>
+
+            <ViewCustomers/>
+
+            <ViewSingleCustomer/>
+
+          </div>
 
 
-          <ViewSingleCustomer/>
+            
 
+          <Footer/>
         </div>
       
       </React.Fragment>
