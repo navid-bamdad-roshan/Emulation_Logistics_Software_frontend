@@ -1,6 +1,5 @@
-import TableRow from "./TableCard/TableRow";
 
-
+import TableRow from './TableCard/TableRow';
 
 function TableCard(props){
     return (
@@ -29,40 +28,7 @@ function TableCard(props){
 
 
                             {props.tableRows.map(row=>(
-                                <tr>
-                                    {row.elements.map((element,index)=>(
-                                        <td scope="row">
-                                            {index == 0 &&
-                                                <a href={row.href}>
-                                                    <div className="align-items-center">
-                                                        <span className="badge badge-dot text-sm">{element}</span>
-                                                    </div>
-                                                </a>
-                                            }
-                                            {index != 0 &&
-                                                <div className="align-items-center">
-                                                    <span className="badge badge-dot text-sm">{element}</span>
-                                                </div>
-                                            }
-                                        </td>
-                                    ))}
-                                    <td className="text-right">
-                                        <div className="dropdown">
-                                            <a className="btn btn-sm btn-icon-only text-light"
-                                                href="#"
-                                                role="button"
-                                                data-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i className="fa fa-lg fa-ellipsis-v"></i>
-                                            </a>
-                                            <div className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <a className="dropdown-item" href={row.href}>Details</a>
-                                                <a className="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                <TableRow rowData={row}/>
                             ))}
                         </tbody>
                     </table>
