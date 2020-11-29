@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-import {FilterDetailsCard} from '../layouts/DetailsElementsCard';
-import TableCard from '../layouts/TableCard';
+import {FilterDetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
+import TableCard from '../widgets/TableCard/TableCard';
 
 
 class ViewCustomers extends Component{

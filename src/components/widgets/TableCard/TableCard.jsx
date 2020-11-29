@@ -1,5 +1,5 @@
 
-import TableRow from './TableCard/TableRow';
+import TableRow from './TableRow';
 
 function TableCard(props){
     return (

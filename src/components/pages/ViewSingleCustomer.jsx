@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {EditableDetailsCardWithModal} from '../layouts/DetailsElementsCard';
+import {EditableDetailsCardWithModal} from '../widgets/DetailsElementCard/DetailsElementsCard';
 
 
 class ViewSingleCustomer extends Component{

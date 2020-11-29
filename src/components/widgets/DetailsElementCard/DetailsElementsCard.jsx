@@ -4,7 +4,7 @@
 
 
 
-import {NonEditableDetailsElement, InputDetailsElement} from './DetailsElementCard/DetailsElement';
+import {NonEditableDetailsElement, InputDetailsElement} from './DetailsElement';
 
 // props: cardTitle, cardElements
 // cardElements: Array of( ex:{"title":"First Name", "value":"John", "id":"first-name", "colSize":"col-lg-6", "inputType":"text"} )
