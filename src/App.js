@@ -14,6 +14,8 @@ import ViewSingleCustomer from './components/pages/ViewSingleCustomer';
 import ViewCustomers from './components/pages/ViewCustomers';
 import Footer from './components/layouts/Footer';
 import Dashboard from './components/pages/Dashboard';
+import TableTest from './components/pages/TableTestPage';
+import TableTestPage from './components/pages/TableTestPage';
 
 
 class App extends Component{
@@ -35,7 +37,9 @@ class App extends Component{
 
             {/* <Dashboard/> */}
 
-            <ViewCustomers/>
+            <TableTestPage/>
+
+            {/* <ViewCustomers/> */}
 
             {/* <ViewSingleCustomer/> */}
 
