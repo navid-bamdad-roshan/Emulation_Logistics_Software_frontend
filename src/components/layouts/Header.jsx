@@ -1,22 +1,89 @@
 import React, {Component} from 'react';
 
+import {Link, withRouter, useParams} from "react-router-dom";
+
+
 class Header extends Component{
-    state={};
+    state={
+        currentPage:"dashboard"
+    };
+
+
+
     render(){
+
+        var navBarPartOne = "Dashboard"
+        var navBarPartTwo = "Default"
+        var urlPartOne = ""
+        var urlPartTwo = ""
+
+
+        const pathText = this.props.location.pathname
+        const pathParts = pathText.split("/")
+
+        if (pathParts.length>1){
+            switch(pathParts[1]) {
+                case "orders":
+                    navBarPartOne = "Orders"
+                    navBarPartTwo = "All"
+                  break;
+                case "shipments":
+                    navBarPartOne = "Shipments"
+                    navBarPartTwo = "All"
+                    
+                  break;
+                case "packages":
+                    navBarPartOne = "Packages"
+                    navBarPartTwo = "All"
+                    
+                  break;
+                case "customers":
+                    navBarPartOne = "Customers"
+                    navBarPartTwo = "All"
+                    
+                  break;
+                case "vehicles":
+                    navBarPartOne = "Vehicles"
+                    navBarPartTwo = "All"
+                    
+                  break;
+                case "employees":
+                    navBarPartOne = "Employees"
+                    navBarPartTwo = "All"
+                    
+                  break;
+            }
+        }
+
+        if (pathParts.length > 2){
+            switch(pathParts[2]){
+                case "view":
+                    navBarPartTwo = "View"
+                break;
+                case "new":
+                    navBarPartTwo = "New"
+                break;
+            }
+        }
+
+
+        console.log("1:"+pathParts[0])
+        console.log("2:"+pathParts[1])
+
         return(
             <div className="header bg-primary pb-6">
                 <div className="container-fluid">
                     <div className="header-body">
                         <div className="row align-items-center py-4">
                             <div className="col-12">
-                                <h6 className="h2 text-white d-inline-block mb-0">Default</h6>
-                                    <nav aria-label="breadcrumb" className="d-none d-md-inline-block ml-md-4">
+                                {/* <h6 className="h2 text-white d-inline-block mb-0">Default</h6> */}
+                                <nav aria-label="breadcrumb" className="d-none d-md-inline-block ml-md-4">
                                     <ol className="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li className="breadcrumb-item">
                                             <a href="#"><i className="fa fa-lg fa-home"></i></a>
                                         </li>
-                                        <li className="breadcrumb-item"><a href="#">Dashboards</a></li>
-                                        <li className="breadcrumb-item active" aria-current="page">Default</li>
+                                        <li className="breadcrumb-item"><a href="#">{navBarPartOne}</a></li>
+                                        <li className="breadcrumb-item" aria-current="page">{navBarPartTwo}</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -105,4 +172,4 @@ class Header extends Component{
     }
 }
 
-export default Header;
+export default withRouter(Header);

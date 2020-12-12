@@ -50,8 +50,17 @@ class App extends Component{
                 <Route path="/customers">
                   <CustomersRoute />
                 </Route>
-                <Route path="/">
+                <Route exact path="/">
                   <Dashboard/>
+                </Route>
+                <Route path="/">
+                  <br/>
+                  <br/>
+                  <br/>
+                  <br/>
+                  <br/>
+                  <br/>
+                  <h1>  TODO implement 404 Not Found </h1>
                 </Route>
               </Switch>
 
