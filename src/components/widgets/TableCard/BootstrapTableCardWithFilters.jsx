@@ -8,19 +8,14 @@ import React, {Component} from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider, PaginationListStandalone } from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+//import { useHistory } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 
 import MainCard from '../MainCard';
 
 
-const rowEvents = {
-    onClick: (e, row, rowIndex) => {
-      console.log(`clicked on row with index: ${row.id}`);
-    },
-  //   onMouseEnter: (e, row, rowIndex) => {
-  //     console.log(`enter on row with index: ${row.id}`);
-  //   }
-  };
+
 
 
 
@@ -31,12 +26,36 @@ const rowEvents = {
 //  tableCols
 //  tableRows
 class BootstrapTableCardWithFilters extends Component {
+
+    constructor(props){
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
     state={
         rows: this.props.tableRows
     }
 
+    handleClick(rowId){
+        this.props.history.push(`/customers/view/${rowId}`);
+    }
+
 
     render() {
+
+
+        const rowEvents = {
+            onClick: (e, row, rowIndex) => {
+              console.log(`clicked on row with index: ${row.id}`);
+              //this.props.history.push(`/customers/view/${row.id}`);
+              this.handleClick(row.id);
+            },
+          //   onMouseEnter: (e, row, rowIndex) => {
+          //     console.log(`enter on row with index: ${row.id}`);
+          //   }
+          };
+
+          
         const options = {
             custom: true,
             paginationSize: 4,
@@ -97,4 +116,4 @@ class BootstrapTableCardWithFilters extends Component {
 
 
 
-export default BootstrapTableCardWithFilters;
+export default withRouter(BootstrapTableCardWithFilters);

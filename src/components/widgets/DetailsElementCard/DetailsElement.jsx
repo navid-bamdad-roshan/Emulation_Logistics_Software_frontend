@@ -17,7 +17,7 @@ function InputDetailsElement(props) {
     return (
         <div className={(props.colSize)}>
             <div className="form-group">
-                <label className="form-control-label" for={"input-"+props.id} style={{"float":"left"}}>{props.title}</label>
+                <label className="form-control-label" htmlFor={"input-"+props.id} style={{"float":"left"}}>{props.title}</label>
                 <input type={props.inputType} id={"input-"+props.id} className="form-control" placeholder={props.title} defaultValue={props.value}/>
             </div>
         </div>

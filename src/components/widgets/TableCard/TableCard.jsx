@@ -39,7 +39,7 @@ function TableCard(props){
                 <nav aria-label="...">
                     <ul className="pagination justify-content-end mb-0">
                         <li className="page-item disabled">
-                            <a className="page-link" href="#" tabindex="-1">
+                            <a className="page-link" href="#" tabIndex="-1">
                                 <i className="fa fa-lg fa-angle-left"></i>
                                 <span className="sr-only">Previous</span>
                             </a>

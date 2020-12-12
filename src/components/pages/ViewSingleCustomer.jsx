@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link, withRouter, useParams} from "react-router-dom";
 
 import {EditableDetailsCardWithModal} from '../widgets/DetailsElementCard/DetailsElementsCard';
 
@@ -21,6 +22,13 @@ class ViewSingleCustomer extends Component{
         ]
 
 
+
+        const customerId = this.props.match.params.customerId
+
+        customerDetailsElements[4].value = customerId
+
+
+
         return( 
             <div className="container-fluid">
                 <div className="row">
@@ -36,8 +44,7 @@ class ViewSingleCustomer extends Component{
 
                         {/* Card to show customer address */}
                         <EditableDetailsCardWithModal cardTitle="Customer Address" cardId="customer-address" cardElements={customerAddressElements} />
-
-
+                    
                     </div>
                 </div>
                 <div className="row">
@@ -53,4 +60,4 @@ class ViewSingleCustomer extends Component{
     }
 }
 
-export default ViewSingleCustomer;
+export default withRouter(ViewSingleCustomer);

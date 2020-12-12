@@ -19,7 +19,6 @@ function EditableDetailsCardWithModal(props){
     // ]
 
     return(
-        <dev>
             <div className="card">
                 <div className="card-header">
                     <div className="row align-items-center">
@@ -32,7 +31,7 @@ function EditableDetailsCardWithModal(props){
                             Edit
                             </button>
                             {/* <!-- Modal --> */}
-                            <div className="modal fade bd-example-modal-lg" id={"edit-modal-"+props.cardId} tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div className="modal fade bd-example-modal-lg" id={"edit-modal-"+props.cardId} tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
                                     <div className="modal-content">
                                         <div className="modal-header">
@@ -45,7 +44,7 @@ function EditableDetailsCardWithModal(props){
                                             <div className="container-fluid">
                                                 <div className="row">
                                                     {props.cardElements.filter(element => element.id != "id").map(element =>(
-                                                        <InputDetailsElement title={element.title} value={element.value} id={element.id} colSize={element.colSize} inputType={props.inputType}/>
+                                                        <InputDetailsElement key={element.id} title={element.title} value={element.value} id={element.id} colSize={element.colSize} inputType={props.inputType}/>
                                                     ))}
                                                 </div>
                                             </div>
@@ -67,14 +66,13 @@ function EditableDetailsCardWithModal(props){
                         <div className="row">
 
                             {props.cardElements.map(element =>(
-                                <NonEditableDetailsElement title={element.title} value={element.value} id={element.id} colSize={element.colSize}/>
+                                <NonEditableDetailsElement key={element.id} title={element.title} value={element.value} id={element.id} colSize={element.colSize}/>
                             ))}
                         </div>
                     </div>
                     </form>
                 </div>
             </div>
-        </dev>
     );
 }
 
