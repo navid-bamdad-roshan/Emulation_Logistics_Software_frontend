@@ -82,9 +82,9 @@ class Header extends Component{
                                 <nav aria-label="breadcrumb" className="d-none d-md-inline-block ml-md-4">
                                     <ol className="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li className="breadcrumb-item">
-                                            <a href="!#"><i className="fa fa-lg fa-home"></i></a>
+                                            <a href="#!"><i className="fa fa-lg fa-home"></i></a>
                                         </li>
-                                        <li className="breadcrumb-item"><a href="!#">{navBarPartOne}</a></li>
+                                        <li className="breadcrumb-item"><a href="#!">{navBarPartOne}</a></li>
                                         <li className="breadcrumb-item" aria-current="page">{navBarPartTwo}</li>
                                     </ol>
                                 </nav>
