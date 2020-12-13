@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {Link, withRouter, useParams} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 
 class Header extends Component{
@@ -14,8 +14,6 @@ class Header extends Component{
 
         var navBarPartOne = "Dashboard"
         var navBarPartTwo = "Default"
-        var urlPartOne = ""
-        var urlPartTwo = ""
 
 
         const pathText = this.props.location.pathname
@@ -52,6 +50,8 @@ class Header extends Component{
                     navBarPartTwo = "All"
                     
                   break;
+                default:
+                    break;
             }
         }
 
@@ -62,6 +62,8 @@ class Header extends Component{
                 break;
                 case "new":
                     navBarPartTwo = "New"
+                break;
+                default:
                 break;
             }
         }
@@ -80,9 +82,9 @@ class Header extends Component{
                                 <nav aria-label="breadcrumb" className="d-none d-md-inline-block ml-md-4">
                                     <ol className="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li className="breadcrumb-item">
-                                            <a href="#"><i className="fa fa-lg fa-home"></i></a>
+                                            <a href="!#"><i className="fa fa-lg fa-home"></i></a>
                                         </li>
-                                        <li className="breadcrumb-item"><a href="#">{navBarPartOne}</a></li>
+                                        <li className="breadcrumb-item"><a href="!#">{navBarPartOne}</a></li>
                                         <li className="breadcrumb-item" aria-current="page">{navBarPartTwo}</li>
                                     </ol>
                                 </nav>

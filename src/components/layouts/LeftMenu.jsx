@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 
 
@@ -80,7 +73,7 @@ class LeftMenu extends Component {
          <div className="scrollbar-inner">
            {/* <!-- Brand --> */}
            <div className="sidenav-header  align-items-center">
-             <a className="navbar-brand" href="javascript:void(0)">
+             <a className="navbar-brand" href="!#">
                <img src="assets/img/brand/blue.png" className="navbar-brand-img" alt="..."/> 
              </a>
            </div>
@@ -111,11 +104,11 @@ class LeftMenu extends Component {
                     {/* <!-- Submenu content --> */}
                     <div id='submenu1' className={"collapse " + this.getClassName("orders") + " sidebar-submenu"} data-parent="#menuAccordion">
                       <Link to="/orders/new" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className=" menu-collapsed">Add new order</span>
                       </Link>
                       <Link to="/orders" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">View orders</span>
                       </Link>
                     </div>
@@ -130,12 +123,12 @@ class LeftMenu extends Component {
                     </Link>
                     {/* <!-- Submenu content --> */}
                     <div id='submenu2' className={"collapse " + this.getClassName("shipments") + " sidebar-submenu"}  data-parent="#menuAccordion">
-                      <a href="#" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                      <a href="!#" className="list-group-item list-group-item-action">
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Add new shipment</span>
                       </a>
-                      <a href="#" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                      <a href="!#" className="list-group-item list-group-item-action">
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">View shipments</span>
                       </a>
                     </div>
@@ -150,12 +143,12 @@ class LeftMenu extends Component {
                     </Link>
                     {/* <!-- Submenu content --> */}
                     <div id='submenu3' className={"collapse " + this.getClassName("packages") + " sidebar-submenu"}  data-parent="#menuAccordion">
-                      <a href="#" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                      <a href="!#" className="list-group-item list-group-item-action">
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Add new package</span>
                       </a>
-                      <a href="#" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                      <a href="!#" className="list-group-item list-group-item-action">
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">View packages</span>
                       </a>
                     </div>
@@ -171,11 +164,11 @@ class LeftMenu extends Component {
                     {/* <!-- Submenu content --> */}
                     <div id='submenu4' className={"collapse " + this.getClassName("customaers") + " sidebar-submenu"}  data-parent="#menuAccordion">
                       <Link to="/customers/new" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Add new customer</span>
                       </Link>
                       <Link to="/customers" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">View customers</span>
                       </Link>
                     </div>
@@ -190,12 +183,12 @@ class LeftMenu extends Component {
                     </Link>
 
                     <div id='submenu5' className={"collapse " + this.getClassName("vehicles") + " sidebar-submenu"}  data-parent="#menuAccordion">
-                      <a href="#" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                      <a href="!#" className="list-group-item list-group-item-action">
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Add new vehicle</span>
                       </a>
-                      <a href="#" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                      <a href="!#" className="list-group-item list-group-item-action">
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">View vehicles</span>
                       </a>
                     </div>
@@ -210,12 +203,12 @@ class LeftMenu extends Component {
                     </Link>
 
                     <div id='submenu6' className={"collapse " + this.getClassName("employees") + " sidebar-submenu"}  data-parent="#menuAccordion">
-                      <a href="#" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                      <a href="!#" className="list-group-item list-group-item-action">
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Add new employee</span>
                       </a>
-                      <a href="#" className="list-group-item list-group-item-action">
-                        <i class="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
+                      <a href="!#" className="list-group-item list-group-item-action">
+                        <i className="ml-4 fa fa-arrow-right mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">View employees</span>
                       </a>
                     </div>

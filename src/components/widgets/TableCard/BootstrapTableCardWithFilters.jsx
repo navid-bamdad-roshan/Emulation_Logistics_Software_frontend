@@ -93,8 +93,6 @@ class BootstrapTableCardWithFilters extends Component {
                 rowEvents = {rowEvents}
                 filter={ filterFactory() }
                 { ...paginationTableProps }
-                striped
-                hover
                 />
             </div>
             </div>

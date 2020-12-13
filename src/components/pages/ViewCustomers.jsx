@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 
-import MainCard from '../widgets/MainCard';
-
 
 
 // React table

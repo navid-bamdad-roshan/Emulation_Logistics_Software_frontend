@@ -49,14 +49,14 @@ class SearchBarHeader extends Component{
                                 </div>
                             </li>
                             <li className="nav-item d-sm-none">
-                                <a className="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                                <a className="nav-link" href="#!" data-action="search-show" data-target="#navbar-search-main">
                                     <i className="ni ni-zoom-split-in"></i>
                                 </a>
                             </li>
                         </ul>
                         <ul className="navbar-nav align-items-center  ml-auto ml-md-0 ">
                             <li className="nav-item dropdown">
-                                <a onClick={()=>toggleDropdownStatus()} className="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a onClick={()=>toggleDropdownStatus()} className="nav-link pr-0" href="#!" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div className="media align-items-center">
                                         <div className="media-body  ml-2  d-none d-lg-block">
                                             <span className="mb-0 text-sm  font-weight-bold">John Snow</span>

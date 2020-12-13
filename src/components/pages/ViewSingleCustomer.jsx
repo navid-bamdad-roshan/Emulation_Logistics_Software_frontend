@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link, withRouter, useParams} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 import {EditableDetailsCardWithModal, EditableDeletableDetailsCardWithModal} from '../widgets/DetailsElementCard/DetailsElementsCard';
 
@@ -53,6 +53,7 @@ class ViewSingleCustomer extends Component{
 
         const addNewAddressButtonClickHandler = () => {
             var newAddress = customerAddressElementsTemplate
+            newAddress.key = this.state.customerAddresses.length
             this.setState({customerAddresses:[...this.state.customerAddresses, newAddress]})
         }
 
@@ -63,6 +64,9 @@ class ViewSingleCustomer extends Component{
         }
 
 
+        const editAddressHandler = (index, address) => {
+            //TODO delete address
+        }
 
 
 
@@ -80,11 +84,11 @@ class ViewSingleCustomer extends Component{
 
 
                 {this.state.customerAddresses.map((addressElements, index) => (
-                    <div className="row">
+                    <div key={index.toString()} className="row">
                         <div className="col">
                             {/* Card to show customer address */}
                             {/* if needInput is true means new address is created and it needs to ask user for inputs */}
-                            <EditableDeletableDetailsCardWithModal key={index} needInput={addressElements[0].value===""} onAddressDelete={deleteAddressHandler} cardTitle="Customer Address" cardId={"customer-address-"+index.toString()} cardElements={addressElements} />
+                            <EditableDeletableDetailsCardWithModal  id={index} initNeeded={addressElements[0].value===""} onCardDelete={deleteAddressHandler} onCardEdit={editAddressHandler} cardTitle="Customer Address" cardId={"customer-address-"+index} cardElements={addressElements} />
                         </div>
                     </div>
                 ))}

@@ -11,7 +11,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   useRouteMatch,
   useParams
 } from "react-router-dom";
@@ -21,7 +20,7 @@ import {
 // Import pages
 import ViewSingleCustomer from './components/pages/ViewSingleCustomer';
 import ViewCustomers from './components/pages/ViewCustomers';
-import ViewCustomersOld from './components/pages/ViewCustomersOld';
+//import ViewCustomersOld from './components/pages/ViewCustomersOld';
 import Footer from './components/layouts/Footer';
 import Dashboard from './components/pages/Dashboard';
 import AddNewCustomer from './components/pages/AddNewCustomer';
