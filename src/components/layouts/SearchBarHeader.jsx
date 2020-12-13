@@ -1,8 +1,23 @@
 import React, {Component} from 'react';
 
 class SearchBarHeader extends Component{
-    state={};
+    state={
+        dropdownIsVisible:false
+    };
     render(){
+
+        const toggleDropdownStatus = () => {
+            this.setState({dropdownIsVisible:!this.state.dropdownIsVisible})
+        }
+
+        const isDropdownVisible = () => {
+            if (this.state.dropdownIsVisible){
+                return "show"
+            }else{
+                return ""
+            }
+        }
+
         return(
             <nav className="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
                 <div className="container-fluid">
@@ -41,14 +56,14 @@ class SearchBarHeader extends Component{
                         </ul>
                         <ul className="navbar-nav align-items-center  ml-auto ml-md-0 ">
                             <li className="nav-item dropdown">
-                                <a className="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a onClick={()=>toggleDropdownStatus()} className="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div className="media align-items-center">
                                         <div className="media-body  ml-2  d-none d-lg-block">
                                             <span className="mb-0 text-sm  font-weight-bold">John Snow</span>
                                         </div>
                                     </div>
                                 </a>
-                                <div className="dropdown-menu  dropdown-menu-right ">
+                                <div className={"dropdown-menu  dropdown-menu-right " + isDropdownVisible()}>
                                     <div className="dropdown-header noti-title">
                                         <h6 className="text-overflow m-0">Welcome!</h6>
                                     </div>

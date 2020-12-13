@@ -111,43 +111,4 @@ function CustomersRoute() {
   );
 }
 
-// function Topic() {
-//   let { customerId } = useParams();
-//   return <h3>Requested topic ID: {customerId}</h3>;
-// }
-
-
-
-
-
-
-
-
-
-
-// function CustomersRouter() {
-//   let match = useRouteMatch();
-
-//   return (
-//       <div>
-//         <Switch>
-//           <Route path={`${match.path}/:customerId`}>
-//             <ViewSingleCustomerRouter />
-//           </Route>
-//           <Route path={match.path}>
-//             <ViewCustomers/>
-//           </Route>
-//         </Switch>
-//       </div>
-//   );
-// }
-
-
-
-// function ViewSingleCustomerRouter() {
-//   let { customerId } = useParams();
-//   console.log(customerId)
-//   return <ViewSingleCustomer customerId={customerId}/>;
-// }
-
 export default App;
