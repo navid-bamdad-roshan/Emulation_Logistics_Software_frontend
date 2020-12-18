@@ -273,6 +273,115 @@ class EditableDeletableDetailsCardWithModal extends Component{
 
 
 
+// props: cardTitle, cardElements
+// cardElements: Array of( ex:{"title":"First Name", "value":"John", "id":"first-name", "colSize":"col-lg-6", "inputType":"text"} )
+class InputDetailsCardWithModal extends Component{
+    // var customerDetailsElements = [{"title":"First Name", "value":"John", "id":"first-name", "colSize":"col-lg-6", "inputType":"text"},
+    //                                 {"title":"Last Name", "value":"Snow", "id":"last-name", "colSize":"col-lg-6", "inputType":"text"},
+    //                                 {"title":"Email", "value":"person@people.com", "id":"email", "colSize":"col-lg-6", "inputType":"email"},
+    //                                 {"title":"Phone", "value":"+987654321", "id":"phone", "colSize":"col-lg-6", "inputType":"tel"},
+    //                                 {"title":"Customer ID", "value":"c_1234", "id":"id", "colSize":"col-lg-6", "inputType":"text"},
+    // ]
+
+
+
+    render(){
+
+
+        return(
+                <div className="card">
+                    <div className="card-header">
+                        <div className="row align-items-center">
+                            <div className="col-8">
+                                <h3 className="mb-0">{this.props.cardTitle}</h3>
+                            </div>
+                            <div className="col-4 text-right">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card-body">
+                        <form>
+                        <div className="pl-lg-4">
+                            
+                            <div className="row">
+
+                                {this.props.cardElements.map(element =>(
+                                    <InputDetailsElement key={element.id} title={element.title} value={element.value} id={element.id} colSize={element.colSize}/>
+                                ))}
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+        );
+    }
+}
+
+
+
+
+
+
+
+// props: cardTitle, cardElements
+// cardElements: Array of( ex:{"title":"First Name", "value":"John", "id":"first-name", "colSize":"col-lg-6", "inputType":"text"} )
+class DeletableInputDetailsCardWithModal extends Component{
+    // var customerDetailsElements = [{"title":"First Name", "value":"John", "id":"first-name", "colSize":"col-lg-6", "inputType":"text"},
+    //                                 {"title":"Last Name", "value":"Snow", "id":"last-name", "colSize":"col-lg-6", "inputType":"text"},
+    //                                 {"title":"Email", "value":"person@people.com", "id":"email", "colSize":"col-lg-6", "inputType":"email"},
+    //                                 {"title":"Phone", "value":"+987654321", "id":"phone", "colSize":"col-lg-6", "inputType":"tel"},
+    //                                 {"title":"Customer ID", "value":"c_1234", "id":"id", "colSize":"col-lg-6", "inputType":"text"},
+    // ]
+
+
+    onCardDelete = () => {
+        this.props.onCardDelete(this.props.id)
+    };
+
+
+    render(){
+
+
+        return(
+                <div className="card">
+                    <div className="card-header">
+                        <div className="row align-items-center">
+                            <div className="col-8">
+                                <h3 className="mb-0">{this.props.cardTitle}</h3>
+                            </div>
+                            <div className="col-4 text-right">
+                                <Button onClick={this.onCardDelete} type="button" className="btn btn-sm btn-primary">
+                                    Delete
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card-body">
+                        <form>
+                        <div className="pl-lg-4">
+                            
+                            <div className="row">
+
+                                {this.props.cardElements.map(element =>(
+                                    <InputDetailsElement key={element.id} title={element.title} value={element.value} id={element.id} colSize={element.colSize}/>
+                                ))}
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+        );
+    }
+}
+
+
+
+
+
+
+
+
 
 
 // props: cardTitle, cardElements
@@ -323,5 +432,7 @@ function FilterDetailsCard(props){
 export{
     EditableDetailsCardWithModal,
     EditableDeletableDetailsCardWithModal,
+    InputDetailsCardWithModal,
+    DeletableInputDetailsCardWithModal,
     FilterDetailsCard
 }
