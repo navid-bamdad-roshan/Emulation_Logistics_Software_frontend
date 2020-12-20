@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
 
-import {InputDetailsCardWithModal, DeletableInputDetailsCardWithModal, EditableDeletableDetailsCardWithModal} from '../widgets/DetailsElementCard/DetailsElementsCard';
+import {InputDetailsCardWithModal, DeletableInputDetailsCardWithModal} from '../widgets/DetailsElementCard/DetailsElementsCard';
 
 
 class AddNewCustomer extends Component{
@@ -23,12 +23,12 @@ class AddNewCustomer extends Component{
                                         {"title":"Phone", "value":"", "id":"phone", "colSize":"col-lg-6", "inputType":"tel"},
                                     ];
 
-        let customerAddressElements = [{"title":"Country", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"State", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"City", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"Postal code", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"Address", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text"},
-                                    ];
+        // let customerAddressElements = [{"title":"Country", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text"},
+        //                                 {"title":"State", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text"},
+        //                                 {"title":"City", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text"},
+        //                                 {"title":"Postal code", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text"},
+        //                                 {"title":"Address", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text"},
+        //                             ];
 
         
         this.state = {customerAddresses: [], customerDetailsElements:customerDetailsElements}

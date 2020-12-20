@@ -130,7 +130,7 @@ class ViewCustomers extends Component{
             <div className="container-fluid">
                 <div className="row">
                     <div className="col">
-                        <BootstrapTableCardWithFilters cardTitle="Customers" tableCols={tableCols} tableRows={tableRows}/>
+                        <BootstrapTableCardWithFilters cardTitle="Customers" tableRowClickDestination="/customers/view/" tableCols={tableCols} tableRows={tableRows}/>
                     </div>
                 </div>
             </div>

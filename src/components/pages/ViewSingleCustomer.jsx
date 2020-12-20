@@ -6,9 +6,6 @@ import {EditableDetailsCardWithModal, EditableDeletableDetailsCardWithModal} fro
 
 class ViewSingleCustomer extends Component{
 
-
-
-
     constructor(props){
         super(props);
 

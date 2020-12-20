@@ -5,7 +5,7 @@ class MainCard extends Component{
     render(){
         return(
             <div className="card">
-                <div className="card-header border-0">
+                <div className="card-header">
                     <div className="row align-items-center">
                         <div className="col">
                             <h3 className="mb-0">{this.props.cardTitle}</h3>

@@ -37,11 +37,14 @@ class BootstrapTableCardWithFilters extends Component {
     }
 
     handleClick(rowId){
-        this.props.history.push(`/customers/view/${rowId}`);
+        this.props.history.push(this.props.tableRowClickDestination + rowId);
     }
 
 
     render() {
+
+
+
 
 
         const rowEvents = {
