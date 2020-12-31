@@ -9,14 +9,17 @@ class NotesCard extends Component{
     constructor(props){
         super(props);
         this.currentEditingNoteId = -1
-        this.currentEditingNoteText = ""
         this.newNoteText = ""
-        this.state = { editModalIsOpen:false, notes: [{id:1, checked:false, text:"Sign contract for \"What are conference organizers afraid of?\""},
-                            {id:2, checked:true, text:"Lines From Great Russian Literature? Or E-mails From My Boss?"},
-                            {id:3, checked:true, text:"Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit"},
-                            {id:4, checked:true, text:"Create 4 Invisible User Experiences you Never Knew About"},
-                            {id:5, checked:false, text:"Read \"Following makes Medium better\""},
-                            {id:6, checked:false, text:"Unfollow 5 enemies from twitter"}]}
+        this.state = { 
+                        editModalIsOpen:false, 
+                        notes: [{id:1, checked:false, text:"Sign contract for \"What are conference organizers afraid of?\""},
+                                        {id:2, checked:true, text:"Lines From Great Russian Literature? Or E-mails From My Boss?"},
+                                        {id:3, checked:true, text:"Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit"},
+                                        {id:4, checked:true, text:"Create 4 Invisible User Experiences you Never Knew About"},
+                                        {id:5, checked:false, text:"Read \"Following makes Medium better\""},
+                                        {id:6, checked:false, text:"Unfollow 5 enemies from twitter"}],
+                        currentEditingNoteText:""
+                        }
     }
 
 
@@ -37,28 +40,27 @@ class NotesCard extends Component{
 
         const openEditModal = (note) => {
             this.currentEditingNoteId = note.id
-            this.currentEditingNoteText = note.text
-            this.setState({editModalIsOpen: true})
+            this.setState({editModalIsOpen: true, currentEditingNoteText: note.text})
         }
 
         const cancelEditModal = () => {
             this.currentEditingNoteId = -1
-            this.currentEditingNoteText = ""
-            this.setState({editModalIsOpen: false})
+            this.setState({editModalIsOpen: false, currentEditingNoteText: ""})
         }
 
         const saveEditModal = () => {
 
-            // TODO edit the note with id "this.currentEditingNoteId"
-
+            // TODO edit the note with id "this.currentEditingNoteId" in backend
+            let tempIndex = this.state.notes.findIndex(element => element.id === this.currentEditingNoteId)
+            let tempNotes = this.state.notes
+            tempNotes[tempIndex].text = this.state.currentEditingNoteText
             this.currentEditingNoteId = -1
-            this.currentEditingNoteText = ""
-            this.setState({editModalIsOpen: false})
+            this.setState({notes: tempNotes, editModalIsOpen: false, currentEditingNoteText: ""})
         }
 
 
         const addNewNote = () => {
-            //TODO add new note with text "this.newNoteText"
+            //TODO add new note with text "this.newNoteText" in backend
 
             if (this.newNoteText === ""){
                 // If the note text is "", do nothing
@@ -86,6 +88,10 @@ class NotesCard extends Component{
             let toCheckToggleIndex = tempNotes.findIndex(element => element.id === noteId)
             tempNotes[toCheckToggleIndex].checked = !tempNotes[toCheckToggleIndex].checked
             this.setState({notes: tempNotes})
+        }
+
+        const editNoteInputChangeHandler = (_, newValue) => {
+            this.setState({currentEditingNoteText: newValue})
         }
 
 
@@ -155,9 +161,7 @@ class NotesCard extends Component{
                                 <Modal.Body>
                                     <div className="container-fluid">
                                         <div className="row">
-                                            
-                                            <InputDetailsElement title="Note" value={this.currentEditingNoteText} id="note" colSize="col-lg-12" inputType="text"/>
-
+                                            <InputDetailsElement onInputValueChange={editNoteInputChangeHandler} id={"note-edit-input"} title="Note" value={this.state.currentEditingNoteText} colSize="col-lg-12" inputType="text"/>
                                         </div>
                                     </div>
                                 </Modal.Body>

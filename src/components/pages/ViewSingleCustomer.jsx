@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
 
-import {EditableDetailsCardWithModal, EditableDeletableDetailsCardWithModal} from '../widgets/DetailsElementCard/DetailsElementsCard';
+import {DetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
+
+
 
 
 class ViewSingleCustomer extends Component{
@@ -60,9 +62,16 @@ class ViewSingleCustomer extends Component{
             this.setState({customerAddresses: tempCustomerAddresses})
         }
 
+        const editCustomerDetailsHandler = (editedCustomerDetails) => {
+            this.setState({customerDetailsElements:editedCustomerDetails})
+            //TODO edit customer in backend
+        }
 
-        const editAddressHandler = (index, address) => {
-            //TODO delete address
+        const editAddressHandler = (index, editedAddress) => {
+            let tempAddresses = this.state.customerAddresses
+            tempAddresses[index] = editedAddress
+            this.setState({customerAddresses:tempAddresses})
+            //TODO edit address in backend
         }
 
 
@@ -75,7 +84,7 @@ class ViewSingleCustomer extends Component{
                 <div className="row">
                     <div className="col">
                         {/* Card to show customer details */}
-                        <EditableDetailsCardWithModal cardTitle="Customer Details" cardId="customer-details" cardElements={this.state.customerDetailsElements} />
+                        <DetailsCard editable={true} onCardEdit={editCustomerDetailsHandler} cardTitle="Customer Details" cardId="customer-details" cardElements={this.state.customerDetailsElements} />
                     </div>
                 </div>
 
@@ -85,7 +94,7 @@ class ViewSingleCustomer extends Component{
                         <div className="col">
                             {/* Card to show customer address */}
                             {/* if needInput is true means new address is created and it needs to ask user for inputs */}
-                            <EditableDeletableDetailsCardWithModal  id={index} initNeeded={addressElements[0].value===""} onCardDelete={deleteAddressHandler} onCardEdit={editAddressHandler} cardTitle="Customer Address" cardId={"customer-address-"+index} cardElements={addressElements} />
+                            <DetailsCard id={index} editable={true} deletable={true} initNeeded={addressElements[0].value===""} onCardDelete={deleteAddressHandler} onCardEdit={editAddressHandler} cardTitle="Customer Address" cardId={"customer-address-"+index} cardElements={addressElements} />
                         </div>
                     </div>
                 ))}

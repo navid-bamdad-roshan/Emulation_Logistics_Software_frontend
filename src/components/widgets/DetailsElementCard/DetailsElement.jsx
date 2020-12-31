@@ -12,13 +12,16 @@ function NonEditableDetailsElement(props) {
 }
 
 
-// props: title, value, id, colSize, inputType
+// props: onInputValueChange, title, value, id, colSize, inputType
 function InputDetailsElement(props) {
+    const onInputValueChange = (e) => {
+        props.onInputValueChange(props.id, e.target.value)
+    }
     return (
         <div className={(props.colSize)}>
             <div className="form-group">
                 <label className="form-control-label" htmlFor={"input-"+props.id} style={{"float":"left"}}>{props.title}</label>
-                <input type={props.inputType} id={"input-"+props.id} className="form-control" placeholder={props.title} defaultValue={props.value}/>
+                <input onChange={onInputValueChange} type={props.inputType} id={"input-"+props.id} className="form-control" placeholder={props.title} value={props.value}/>
             </div>
         </div>
     );

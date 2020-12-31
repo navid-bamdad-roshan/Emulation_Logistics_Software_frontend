@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
 
-import {InputDetailsCardWithModal, DeletableInputDetailsCardWithModal} from '../widgets/DetailsElementCard/DetailsElementsCard';
+import {InputDetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
 
 
 class AddNewCustomer extends Component{
@@ -60,13 +60,23 @@ class AddNewCustomer extends Component{
             this.setState({customerAddresses: tempCustomerAddresses})
         }
 
-
-        const editAddressHandler = (index, address) => {
-            //TODO delete address
+        const submitCustomerHandler = () => {
+            //TODO submit the customer to backend
+            //customer details are in state
         }
 
-        const submitCustomerHandler = () => {
-            //TODO submit the customer
+        const customerDetailsInputValueChangeHandler = (elementId, newValue) => {
+            let tempCustomerDetailsElements = this.state.customerDetailsElements
+            let tempIndex = tempCustomerDetailsElements.findIndex(element => element.id === elementId)
+            tempCustomerDetailsElements[tempIndex].value = newValue
+            this.setState({customerDetailsElements : tempCustomerDetailsElements})
+        }
+
+        const addressDetailsInputValueChangeHandler = (addressIndex, elementId, newValue) => {
+            let tempcustomerAddresses = this.state.customerAddresses
+            let tempIndex = tempcustomerAddresses[addressIndex].findIndex(element => element.id === elementId)
+            tempcustomerAddresses[addressIndex][tempIndex].value = newValue
+            this.setState({customerAddresses : tempcustomerAddresses})
         }
 
 
@@ -79,7 +89,7 @@ class AddNewCustomer extends Component{
                 <div className="row">
                     <div className="col">
                         {/* Card to show customer details */}
-                        <InputDetailsCardWithModal cardTitle="Customer Details" cardId="customer-details" cardElements={this.state.customerDetailsElements} />
+                        <InputDetailsCard onCardInputValueChange={customerDetailsInputValueChangeHandler} cardTitle="Customer Details" cardId="customer-details" cardElements={this.state.customerDetailsElements} />
                     </div>
                 </div>
 
@@ -89,7 +99,7 @@ class AddNewCustomer extends Component{
                         <div className="col">
                             {/* Card to show customer address */}
                             {/* if needInput is true means new address is created and it needs to ask user for inputs */}
-                            <DeletableInputDetailsCardWithModal  id={index} initNeeded={addressElements[0].value===""} onCardDelete={deleteAddressHandler} onCardEdit={editAddressHandler} cardTitle="Customer Address" cardId={"customer-address-"+index} cardElements={addressElements} />
+                            <InputDetailsCard id={index} onCardInputValueChange={addressDetailsInputValueChangeHandler} deletable={true} onCardDelete={deleteAddressHandler} cardTitle="Customer Address" cardId={"customer-address-"+index} cardElements={addressElements} />
                         </div>
                     </div>
                 ))}
