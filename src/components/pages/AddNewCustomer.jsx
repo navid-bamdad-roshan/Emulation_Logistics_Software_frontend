@@ -57,7 +57,7 @@ class AddNewCustomer extends Component{
         const deleteAddressHandler = (index) => {
             var tempCustomerAddresses = this.state.customerAddresses
             tempCustomerAddresses.splice(index, 1)
-            this.setState({customerAddresses: tempCustomerAddresses})
+            this.setState({customerAddresses: [...tempCustomerAddresses]})
         }
 
         const submitCustomerHandler = () => {
@@ -69,14 +69,14 @@ class AddNewCustomer extends Component{
             let tempCustomerDetailsElements = this.state.customerDetailsElements
             let tempIndex = tempCustomerDetailsElements.findIndex(element => element.id === elementId)
             tempCustomerDetailsElements[tempIndex].value = newValue
-            this.setState({customerDetailsElements : tempCustomerDetailsElements})
+            this.setState({customerDetailsElements : [...tempCustomerDetailsElements]})
         }
 
         const addressDetailsInputValueChangeHandler = (addressIndex, elementId, newValue) => {
             let tempcustomerAddresses = this.state.customerAddresses
             let tempIndex = tempcustomerAddresses[addressIndex].findIndex(element => element.id === elementId)
             tempcustomerAddresses[addressIndex][tempIndex].value = newValue
-            this.setState({customerAddresses : tempcustomerAddresses})
+            this.setState({customerAddresses : [...tempcustomerAddresses]})
         }
 
 

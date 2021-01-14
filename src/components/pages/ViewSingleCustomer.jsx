@@ -59,18 +59,18 @@ class ViewSingleCustomer extends Component{
         const deleteAddressHandler = (index) => {
             var tempCustomerAddresses = this.state.customerAddresses
             tempCustomerAddresses.splice(index, 1)
-            this.setState({customerAddresses: tempCustomerAddresses})
+            this.setState({customerAddresses: [...tempCustomerAddresses]})
         }
 
         const editCustomerDetailsHandler = (editedCustomerDetails) => {
-            this.setState({customerDetailsElements:editedCustomerDetails})
+            this.setState({customerDetailsElements: [...editedCustomerDetails]})
             //TODO edit customer in backend
         }
 
         const editAddressHandler = (index, editedAddress) => {
             let tempAddresses = this.state.customerAddresses
             tempAddresses[index] = editedAddress
-            this.setState({customerAddresses:tempAddresses})
+            this.setState({customerAddresses: [...tempAddresses]})
             //TODO edit address in backend
         }
 
