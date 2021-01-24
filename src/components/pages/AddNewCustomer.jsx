@@ -4,8 +4,16 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
 
-import {InputDetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
+import axios from "axios";
 
+
+import {InputDetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
+import ErrorModal from '../widgets/ErrorModal';
+
+
+const api = axios.create({
+    baseURL: "http://localhost:8080/customers"
+})
 
 class AddNewCustomer extends Component{
 
@@ -31,7 +39,54 @@ class AddNewCustomer extends Component{
         //                             ];
 
         
-        this.state = {customerAddresses: [], customerDetailsElements:customerDetailsElements}
+        this.state = {addCustomerErrorModalIsOpen:false, customerAddresses: [], customerDetailsElements:customerDetailsElements}
+    }
+
+
+    async submitCustomerHandler(){
+        //TODO submit the customer to backend
+        //customer details are in state
+
+
+
+        var newCustomer = {
+            fisrstName: this.state.customerDetailsElements.find(element=>element.id === "first-name").value,
+            lastName: this.state.customerDetailsElements.find(element=>element.id === "last-name").value,
+            email: this.state.customerDetailsElements.find(element=>element.id === "email").value,
+            phone: this.state.customerDetailsElements.find(element=>element.id === "phone").value,
+            addresses: []
+        }
+
+        this.state.customerAddresses.forEach(addressElement => {
+            const tempAddress = {
+                country: addressElement.find(element=>element.id === "country").value,
+                state: addressElement.find(element=>element.id === "state").value,
+                city: addressElement.find(element=>element.id === "city").value,
+                postalCode: addressElement.find(element=>element.id === "postal-code").value,
+                address: addressElement.find(element=>element.id === "address").value,
+            }
+            newCustomer.addresses.push(tempAddress)
+        })
+
+
+        // const requestOptions = {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(newCustomer)
+        // };
+        // fetch('http://localhost:8080/customer/add-customer', requestOptions)
+        //     .then(response => response.json())
+        //     .then(data => this.setState({ postId: data.id }));
+
+        const res = await api.put('', newCustomer);
+        if((res.status === 200) || (res.status === 200)){
+        console.log("Successful put request")
+           this.props.history.push(`/customers/view/${res.data}`);
+        }else{
+            console.log("Unsuccessful put request")
+            this.setState({addCustomerErrorModalIsOpen:true})
+        }
+
     }
 
 
@@ -60,10 +115,7 @@ class AddNewCustomer extends Component{
             this.setState({customerAddresses: [...tempCustomerAddresses]})
         }
 
-        const submitCustomerHandler = () => {
-            //TODO submit the customer to backend
-            //customer details are in state
-        }
+        
 
         const customerDetailsInputValueChangeHandler = (elementId, newValue) => {
             let tempCustomerDetailsElements = this.state.customerDetailsElements
@@ -80,11 +132,21 @@ class AddNewCustomer extends Component{
         }
 
 
+        const closeAddCustomerErrorModal = () => {
+            this.setState({addCustomerErrorModalIsOpen:false})
+        }
 
 
 
         return( 
             <div className="container-fluid">
+                
+                {/* Modal to show error in customer insert */}
+                <ErrorModal 
+                    show={this.state.addCustomerErrorModalIsOpen} 
+                    closeHandler={closeAddCustomerErrorModal} 
+                    errorTitle="Error" 
+                    errorText="An error occured while adding new customer"/>
 
                 <div className="row">
                     <div className="col">
@@ -123,7 +185,7 @@ class AddNewCustomer extends Component{
 
                     </div>
                     <div className="col-4 d-flex justify-content-center pb-4">
-                        <button className="btn btn-primary btn-lg btn-block" onClick={() => submitCustomerHandler()}>
+                        <button className="btn btn-primary btn-lg btn-block" onClick={() => this.submitCustomerHandler()}>
                             <span>Submit</span>
                         </button>
                     </div>
