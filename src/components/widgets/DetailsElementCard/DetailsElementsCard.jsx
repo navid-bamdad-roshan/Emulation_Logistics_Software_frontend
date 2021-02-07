@@ -173,7 +173,7 @@ class DetailsCard extends Component{
                                         <div className="container-fluid">
                                             <div className="row">
                                                 {this.state.editedCardElements.filter(element => element.id !== "id").map(element =>(
-                                                    <InputDetailsElement key={element.id} onInputValueChange={this.onEditModalChildInputValueChangeHandler} title={element.title} value={element.value} id={element.id} colSize={element.colSize} inputType={this.props.inputType} />
+                                                    <InputDetailsElement key={element.id} onInputValueChange={this.onEditModalChildInputValueChangeHandler} title={element.title} value={element.value} id={element.id} colSize={element.colSize} inputType={this.props.inputType}  requiredField={element.requiredField}/>
                                                 ))}
                                             </div>
                                         </div>
@@ -316,7 +316,7 @@ class InputDetailsCard extends Component{
                             <div className="row">
 
                                 {this.props.cardElements.map(element =>(
-                                    <InputDetailsElement key={element.id} onInputValueChange={this.onChildInputValueChangeHandler} title={element.title} value={element.value} id={element.id} colSize={element.colSize}/>
+                                    <InputDetailsElement key={element.id} onInputValueChange={this.onChildInputValueChangeHandler} title={element.title} value={element.value} id={element.id} colSize={element.colSize} requiredField={element.requiredField}/>
                                 ))}
                             </div>
                         </div>

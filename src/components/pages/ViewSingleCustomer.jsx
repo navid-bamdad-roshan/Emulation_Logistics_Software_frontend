@@ -13,18 +13,18 @@ class ViewSingleCustomer extends Component{
 
 
 
-        let customerDetailsElements = [{"title":"First Name", "value":"John", "id":"first-name", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"Last Name", "value":"Snow", "id":"last-name", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"Email", "value":"person@people.com", "id":"email", "colSize":"col-lg-6", "inputType":"email"},
-                                        {"title":"Phone", "value":"+987654321", "id":"phone", "colSize":"col-lg-6", "inputType":"tel"},
+        let customerDetailsElements = [{"title":"First Name", "value":"John", "id":"first-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                        {"title":"Last Name", "value":"Snow", "id":"last-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                        {"title":"Email", "value":"person@people.com", "id":"email", "colSize":"col-lg-6", "inputType":"email", "requiredField":false},
+                                        {"title":"Phone", "value":"+987654321", "id":"phone", "colSize":"col-lg-6", "inputType":"tel", "requiredField":false},
                                         {"title":"Customer ID", "value":"c_1234", "id":"id", "colSize":"col-lg-6", "inputType":"text"},
                                     ];
 
-        let customerAddressElements = [{"title":"Country", "value":"Estonia", "id":"country", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"State", "value":"Harjumaa", "id":"state", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"City", "value":"Tallinn", "id":"city", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"Postal code", "value":"987654", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text"},
-                                        {"title":"Address", "value":"Address of the customer!", "id":"address", "colSize":"col-lg-12", "inputType":"text"},
+        let customerAddressElements = [{"title":"Country", "value":"Estonia", "id":"country", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                        {"title":"State", "value":"Harjumaa", "id":"state", "colSize":"col-lg-6", "inputType":"text", "requiredField":false},
+                                        {"title":"City", "value":"Tallinn", "id":"city", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                        {"title":"Postal code", "value":"987654", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                        {"title":"Address", "value":"Address of the customer!", "id":"address", "colSize":"col-lg-12", "inputType":"text", "requiredField":true},
                                     ];
 
         const customerId = this.props.match.params.customerId
@@ -39,11 +39,11 @@ class ViewSingleCustomer extends Component{
     render(){
 
 
-        const customerAddressElementsTemplate = [{"title":"Country", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text"},
-                                                    {"title":"State", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text"},
-                                                    {"title":"City", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text"},
-                                                    {"title":"Postal code", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text"},
-                                                    {"title":"Address", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text"},
+        const customerAddressElementsTemplate = [{"title":"Country", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                                    {"title":"State", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text", "requiredField":false},
+                                                    {"title":"City", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                                    {"title":"Postal code", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                                    {"title":"Address", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text", "requiredField":true},
                                                 ];
 
 

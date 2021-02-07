@@ -1,20 +1,47 @@
 import React, {Component} from 'react';
 
+import axios from "axios";
+
 
 
 // React table
 import BootstrapTableCardWithFilters from '../widgets/TableCard/BootstrapTableCardWithFilters';
 
+import ErrorModal from '../widgets/ErrorModal';
+
+
+const api = axios.create({
+    baseURL: "http://localhost:8080/customers"
+})
 
 
 
 
 
-
-  
 
 
 class ViewCustomers extends Component{
+
+    constructor(){
+        super()
+        this.state={loadCustomersErrorModalIsOpen:false}
+    }
+
+
+    async componentDidMount(){
+        try{
+            const res = await api.get('');
+            if(res.status === 200){
+            console.log("Successful get request")
+            }else{
+                console.log("Unsuccessful gett request")
+                this.setState({loadCustomersErrorModalIsOpen:true})
+            }
+        }catch{
+            console.log("Unsuccessful gett request")
+            this.setState({loadCustomersErrorModalIsOpen:true})
+        }
+    }
 
     
     render(){
@@ -128,6 +155,12 @@ class ViewCustomers extends Component{
         return(
 
             <div className="container-fluid">
+                <ErrorModal 
+                    show={this.state.loadCustomersErrorModalIsOpen} 
+                    closeHandler={""} 
+                    errorTitle="Error" 
+                    errorText={"An error occured while loading customers!"}
+                />
                 <div className="row">
                     <div className="col">
                         <BootstrapTableCardWithFilters cardTitle="Customers" tableRowClickDestination="/customers/view/" tableCols={tableCols} tableRows={tableRows}/>
