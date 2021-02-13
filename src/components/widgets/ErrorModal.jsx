@@ -20,7 +20,10 @@ function ErrorModal(props){
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="primary" onClick={props.closeHandler}>
-                    Close
+                    {props.closeButtonTitle}
+                </Button>
+                <Button variant="primary" onClick={props.retryHandler}>
+                    {props.retryButtonTitle}
                 </Button>
             </Modal.Footer>
         </Modal>

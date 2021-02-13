@@ -23,7 +23,6 @@ class LeftMenu extends Component {
   setSelectedMenu = (menuName) => {
     //var selectedMenu = this.state.selectedMenu
     //if (selectedMenu === menuName){
-    console.log("set state")
     this.setState({selectedMenu:menuName})
     //}else{
     //  this.setState({visibleSubMenu:subMenuName})
@@ -31,6 +30,19 @@ class LeftMenu extends Component {
   }
 
   toggleSubmenu = (subMenuName) => {
+    var visibleSubMenu = this.state.visibleSubMenu
+    var newVisibleSubMenu = ""
+    if (visibleSubMenu === subMenuName){
+      newVisibleSubMenu = ""
+    }else{
+      newVisibleSubMenu = subMenuName
+    }
+    this.setState({visibleSubMenu:newVisibleSubMenu, selectedMenu:subMenuName})
+  };
+
+  toggleSubmenu = (event, subMenuName) => {
+    // to prevent react router from redirecting
+    event.preventDefault()
     var visibleSubMenu = this.state.visibleSubMenu
     var newVisibleSubMenu = ""
     if (visibleSubMenu === subMenuName){
@@ -95,7 +107,7 @@ class LeftMenu extends Component {
                   </li>
 
                   <li className="nav-item">
-                    <Link onClick={()=>{this.toggleSubmenu("orders")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("orders")} >
+                    <Link to="/" onClick={(event)=>{this.toggleSubmenu(event, "orders")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("orders")} >
                       <div className="d-flex w-100 justify-content-start align-items-center">
                         <i className="fa fa-list-alt mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsSed">Orders</span>
@@ -115,7 +127,7 @@ class LeftMenu extends Component {
                   </li>
 
                   <li className="nav-item">
-                    <Link onClick={()=>{this.toggleSubmenu("shipments")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("shipments")}>
+                    <Link to="/" onClick={(event)=>{this.toggleSubmenu(event, "shipments")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("shipments")}>
                       <div className="d-flex w-100 justify-content-start align-items-center">
                         <i className="fa fa-ship mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Shipments</span>
@@ -135,7 +147,7 @@ class LeftMenu extends Component {
                   </li>
                   
                   <li className="nav-item">
-                    <Link onClick={()=>{this.toggleSubmenu("packages")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("packages")}>
+                    <Link to="/" onClick={(event)=>{this.toggleSubmenu(event, "packages")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("packages")}>
                       <div className="d-flex w-100 justify-content-start align-items-center">
                         <i className="fa fa-cube mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Packages</span>
@@ -155,7 +167,7 @@ class LeftMenu extends Component {
                   </li>
 
                   <li className="nav-item">
-                    <Link onClick={()=>{this.toggleSubmenu("customaers")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("customaers")}>
+                    <Link to="/" onClick={(event)=>{this.toggleSubmenu(event, "customaers")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("customaers")}>
                       <div className="d-flex w-100 justify-content-start align-items-center">
                         <i className="fa fa-user mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Customers</span>
@@ -175,7 +187,7 @@ class LeftMenu extends Component {
                   </li>
 
                   <li className="nav-item">
-                    <Link onClick={()=>{this.toggleSubmenu("vehicles")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start "+ this.isMenuActive("vehicles")}>
+                    <Link to="/" onClick={(event)=>{this.toggleSubmenu(event, "vehicles")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start "+ this.isMenuActive("vehicles")}>
                       <div className="d-flex w-100 justify-content-start align-items-center">
                         <i className="fa fa-truck mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Vehicles</span>
@@ -195,7 +207,7 @@ class LeftMenu extends Component {
                   </li>
 
                   <li className="nav-item">
-                    <Link onClick={()=>{this.toggleSubmenu("employees")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("employees")}>
+                    <Link to="/" onClick={(event)=>{this.toggleSubmenu(event, "employees")}} data-toggle="collapse" aria-expanded="false" className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("employees")}>
                       <div className="d-flex w-100 justify-content-start align-items-center">
                         <i className="fa fa-users mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Employees</span>

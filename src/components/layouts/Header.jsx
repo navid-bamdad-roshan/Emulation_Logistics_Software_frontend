@@ -68,10 +68,6 @@ class Header extends Component{
             }
         }
 
-
-        console.log("1:"+pathParts[0])
-        console.log("2:"+pathParts[1])
-
         return(
             <div className="header bg-primary pb-6">
                 <div className="container-fluid">

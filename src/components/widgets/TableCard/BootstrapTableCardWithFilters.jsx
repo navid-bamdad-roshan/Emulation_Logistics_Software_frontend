@@ -32,9 +32,9 @@ class BootstrapTableCardWithFilters extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    state={
-        rows: this.props.tableRows
-    }
+    // state={
+    //     rows: this.props.tableRows
+    // }
 
     handleClick(rowId){
         this.props.history.push(this.props.tableRowClickDestination + rowId);
@@ -72,7 +72,7 @@ class BootstrapTableCardWithFilters extends Component {
             firstPageTitle: 'Next page',
             lastPageTitle: 'Last page',
             showTotal: true,
-            totalSize: this.state.rows.length
+            totalSize: this.props.tableRows.length
         };
 
 
@@ -91,7 +91,7 @@ class BootstrapTableCardWithFilters extends Component {
                 striped
                 hover
                 keyField="id"
-                data={ this.state.rows }
+                data={ this.props.tableRows }
                 columns={ this.props.tableCols }
                 rowEvents = {rowEvents}
                 filter={ filterFactory() }
