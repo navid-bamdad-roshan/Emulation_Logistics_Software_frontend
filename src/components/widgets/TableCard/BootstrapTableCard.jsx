@@ -44,7 +44,6 @@ class BootstrapTableCard extends Component {
 
         const rowEvents = {
             onClick: (e, row, rowIndex) => {
-              console.log(`clicked on row with index: ${row.id}`);
               //this.props.history.push(`/customers/view/${row.id}`);
               this.handleClick(row.id);
             },
