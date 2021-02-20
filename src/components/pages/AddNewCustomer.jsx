@@ -99,7 +99,7 @@ class AddNewCustomer extends Component{
 
         if (error === ""){
             try{
-                const res = await api.put('', newCustomer);
+                const res = await api.post('', newCustomer);
                 if((res.status === 200) && (res.data !== -1)){
                 console.log("Successful put request")
                    this.props.history.push(`/customers/view/${res.data}`);

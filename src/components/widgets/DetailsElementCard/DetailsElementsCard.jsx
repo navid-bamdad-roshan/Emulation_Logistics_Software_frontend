@@ -87,20 +87,24 @@ class DetailsCard extends Component{
         }
     };
 
-    onSaveEditModalHandler = () => {
-        if (this.state.initNeeded){
-            this.setState({ editModalIsOpen: false, initNeeded: false })
-        }else{
-            this.setState({ editModalIsOpen: false })
-        }
+    onSaveEditModalHandler = async () => {
+
+        var isUpdateSuccessful = false;
 
         //TODO send the edited card elements
         if(this.state.editable){
             if(this.state.passIdAsArgument){
-                this.props.onCardEdit(this.props.id, lodashClonedeep(this.state.editedCardElements))
+                isUpdateSuccessful = await this.props.onCardEdit(this.props.id, lodashClonedeep(this.state.editedCardElements))
             }
             else{
-                this.props.onCardEdit(lodashClonedeep(this.state.editedCardElements))
+                isUpdateSuccessful = await this.props.onCardEdit(lodashClonedeep(this.state.editedCardElements))
+            }
+        }
+        if (isUpdateSuccessful === true){
+            if (this.state.initNeeded){
+                this.setState({ editModalIsOpen: false, initNeeded: false })
+            }else{
+                this.setState({ editModalIsOpen: false })
             }
         }
     };
@@ -179,8 +183,19 @@ class DetailsCard extends Component{
                                         </div>
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button type="button" onClick={this.onCancelEditModalHandler} className="btn btn-secondary">Close</Button>
-                                        <Button type="button" onClick={this.onSaveEditModalHandler} className="btn btn-primary">Save changes</Button>
+                                        <div className="container-fluid">
+                                            <div className="row">
+                                                <div className="col-lg-8 col-sm-5 col-12 pb-2">
+                                                    <span>{this.props.editModalMessage}</span>
+                                                </div>
+                                                <div className="col-lg-4 col-sm-7 col-12">
+                                                    <div class="d-flex justify-content-around">
+                                                        <Button type="button" onClick={this.onCancelEditModalHandler} className="btn btn-secondary">Close</Button>
+                                                        <Button type="button" onClick={this.onSaveEditModalHandler} className="btn btn-primary">Save changes</Button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </Modal.Footer>
                                 </Modal>
 

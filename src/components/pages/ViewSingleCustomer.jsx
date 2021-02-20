@@ -30,11 +30,12 @@ class ViewSingleCustomer extends Component{
                                         {"title":"Customer ID", "value":"", "id":"id", "colSize":"col-lg-6", "inputType":"text"},
                                     ];
 
-        this.customerAddressElementsTemplate = [{"title":"Country", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-                                        {"title":"State", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text", "requiredField":false},
-                                        {"title":"City", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-                                        {"title":"Postal code", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-                                        {"title":"Address", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text", "requiredField":true},
+        this.customerAddressElementsTemplate = [
+                                        {"title":"Country", "addressId":"", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                        {"title":"State", "addressId":"", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text", "requiredField":false},
+                                        {"title":"City", "addressId":"", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                        {"title":"Postal code", "addressId":"", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                        {"title":"Address", "addressId":"", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text", "requiredField":true},
                                     ];
 
         
@@ -48,6 +49,8 @@ class ViewSingleCustomer extends Component{
             selectedCustomerId: this.props.match.params.customerId,
             loadCustomerErrorModalIsOpen:false,
             loadingData:false,
+            customerDetailsEditModalMessage:"",
+            customerAddressEditModalMessage:""
         };
     }
 
@@ -122,18 +125,23 @@ class ViewSingleCustomer extends Component{
                 switch(element.id){
                     case "country":
                         element.value = loadedAddress.country
+                        element.addressId = loadedAddress.id
                     break;
                     case "state":
                         element.value = loadedAddress.state
+                        element.addressId = loadedAddress.id
                     break;
                     case "city":
                         element.value = loadedAddress.city
+                        element.addressId = loadedAddress.id
                     break;
                     case "postal-code":
                         element.value = loadedAddress.postalCode
+                        element.addressId = loadedAddress.id
                     break;
                     case "address":
                         element.value = loadedAddress.address
+                        element.addressId = loadedAddress.id
                     break;
                     default:
                     break;
@@ -144,6 +152,103 @@ class ViewSingleCustomer extends Component{
         });
         return (addresses);
     }
+
+
+    async updateCustomer(editedCustomerDetails){
+        var error = "";
+
+        var editedCustomer = {
+            firstName: editedCustomerDetails.find(element=>element.id === "first-name").value,
+            lastName: editedCustomerDetails.find(element=>element.id === "last-name").value,
+            email: editedCustomerDetails.find(element=>element.id === "email").value,
+            phone: editedCustomerDetails.find(element=>element.id === "phone").value,
+            addresses: []
+        }
+
+        editedCustomerDetails.forEach(element => {
+            if (element.requiredField){
+                if (element.value === ""){
+                    error = "Please fill the required fields!"
+                }
+            }
+        })
+
+        // if(editedCustomer.firstName === "" || editedCustomer.lastName === ""){
+        //     error = "Please fill the required fields!"
+        // }
+
+        if (error === ""){
+            try{
+                this.setState({customerDetailsEditModalMessage:"Please wait!"})
+                const res = await api.put(`/${this.state.selectedCustomerId}`, editedCustomer);
+                if((res.status === 200) && (res.data !== -1)){
+                    let [tmpCustomer, tmpAddresses] = this.loadCustomerToDetailElements(res.data)
+                    this.setState({customerDetailsEditModalMessage:"", customerDetailsElements:tmpCustomer, customerAddresses:tmpAddresses})
+                    return true;
+                }else{
+                    this.setState({customerDetailsEditModalMessage:"An error occured while updating customer!"})
+                    return false;
+                }
+            }catch{
+                this.setState({customerDetailsEditModalMessage:"An error occured while updating customer!"})
+                return false;
+            }
+
+        }else{
+            this.setState({customerDetailsEditModalMessage:error})
+            return false;
+        }
+    }
+
+
+    async updateAddress(index, editedCustomerAddressDetails){
+        
+        var error = "";
+
+        const addressId = editedCustomerAddressDetails[0].addressId;
+
+        editedCustomerAddressDetails.forEach(element => {
+            if (element.requiredField){
+                if (element.value === ""){
+                    error = "Please fill the required fields!"
+                }
+            }
+        })
+
+        var editedCustomerAddress = {
+            country: editedCustomerAddressDetails.find(element=>element.id === "country").value,
+            state: editedCustomerAddressDetails.find(element=>element.id === "state").value,
+            city: editedCustomerAddressDetails.find(element=>element.id === "city").value,
+            postalCode: editedCustomerAddressDetails.find(element=>element.id === "postal-code").value,
+            address: editedCustomerAddressDetails.find(element=>element.id === "address").value,
+        }
+
+        if (error === ""){
+            try{
+                this.setState({customerAddressEditModalMessage:"Please wait!"})
+                const res = await api.put(`/${this.state.selectedCustomerId}/address/${addressId}`, editedCustomerAddress);
+                if((res.status === 200) && (res.data !== -1)){
+                    let addresses = this.loadAddressToDetailElements([res.data])
+                    let tempAddresses = this.state.customerAddresses
+                    tempAddresses[index] = addresses[0]
+                    this.setState({customerAddressEditModalMessage:"", customerAddresses: [...tempAddresses]})
+                    return true;
+                }else{
+                    this.setState({customerAddressEditModalMessage:"An error occured while updating the address!"})
+                    return false;
+                }
+            }catch{
+                this.setState({customerAddressEditModalMessage:"An error occured while updating the address!"})
+                return false;
+            }
+
+        }else{
+            this.setState({customerAddressEditModalMessage:error})
+            return false;
+        }
+    }
+
+
 
 
 
@@ -173,16 +278,16 @@ class ViewSingleCustomer extends Component{
             this.setState({customerAddresses: [...tempCustomerAddresses]})
         }
 
-        const editCustomerDetailsHandler = (editedCustomerDetails) => {
-            this.setState({customerDetailsElements: [...editedCustomerDetails]})
-            //TODO edit customer in backend
+
+        const editCustomerDetailsHandler = async (editedCustomerDetails) => {
+            const isUpdateSuccessful = await this.updateCustomer(editedCustomerDetails)
+            return isUpdateSuccessful;
         }
 
-        const editAddressHandler = (index, editedAddress) => {
-            let tempAddresses = this.state.customerAddresses
-            tempAddresses[index] = editedAddress
-            this.setState({customerAddresses: [...tempAddresses]})
-            //TODO edit address in backend
+
+        const editAddressHandler = async (index, editedAddress) => {
+            const isUpdateSuccessful = await this.updateAddress(index, editedAddress)
+            return (isUpdateSuccessful)
         }
 
 
@@ -195,7 +300,9 @@ class ViewSingleCustomer extends Component{
             this.loadCustomer()
         }
 
-  
+
+
+
 
 
         return( 
@@ -216,7 +323,7 @@ class ViewSingleCustomer extends Component{
                 <div className="row">
                     <div className="col">
                         {/* Card to show customer details */}
-                        <DetailsCard editable={true} onCardEdit={editCustomerDetailsHandler} cardTitle="Customer Details" cardId="customer-details" cardElements={this.state.customerDetailsElements} />
+                        <DetailsCard editable={true} editModalMessage={this.state.customerDetailsEditModalMessage} onCardEdit={editCustomerDetailsHandler} cardTitle="Customer Details" cardId="customer-details" cardElements={this.state.customerDetailsElements} />
                     </div>
                 </div>
 
@@ -226,7 +333,7 @@ class ViewSingleCustomer extends Component{
                         <div className="col">
                             {/* Card to show customer address */}
                             {/* if needInput is true means new address is created and it needs to ask user for inputs */}
-                            <DetailsCard id={index} editable={true} deletable={true} initNeeded={addressElements[0].value===""} onCardDelete={deleteAddressHandler} onCardEdit={editAddressHandler} cardTitle="Customer Address" cardId={"customer-address-"+index} cardElements={addressElements} />
+                            <DetailsCard id={index} editable={true} deletable={true} initNeeded={addressElements[0].value===""} editModalMessage={this.state.customerAddressEditModalMessage} onCardDelete={deleteAddressHandler} onCardEdit={editAddressHandler} cardTitle="Customer Address" cardId={"customer-address-"+index} cardElements={addressElements} />
                         </div>
                     </div>
                 ))}
