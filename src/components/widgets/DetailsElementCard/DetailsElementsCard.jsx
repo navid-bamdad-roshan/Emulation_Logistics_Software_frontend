@@ -73,8 +73,10 @@ class DetailsCard extends Component{
 
     
 
-    openEditModal = () => this.setState({ editModalIsOpen: true, editedCardElements:lodashClonedeep(this.props.cardElements) });
-
+    openEditModal = () => {
+        this.setState({ editModalIsOpen: true, editedCardElements:lodashClonedeep(this.props.cardElements) })
+        
+    }
     onCancelEditModalHandler = () => {
         this.setState({ editModalIsOpen: false, editedCardElements:lodashClonedeep(this.props.cardElements) })
         if (this.state.initNeeded){

@@ -8,12 +8,30 @@ import {DetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
 import ErrorModal from '../widgets/ErrorModal';
 import MainCard from '../widgets/MainCard';
 
+const lodashClonedeep = require("lodash.clonedeep");
+
 
 const api = axios.create({
     baseURL: "http://localhost:8080/customers"
 })
 
 
+const customerAddressElementsTemplate = [
+                                            {"title":"Country", "addressId":"", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                            {"title":"State", "addressId":"", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text", "requiredField":false},
+                                            {"title":"City", "addressId":"", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                            {"title":"Postal code", "addressId":"", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                            {"title":"Address", "addressId":"", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text", "requiredField":true},
+                                        ];
+
+
+const customerDetailsElementsTemplate = [
+                                            {"title":"First Name", "value":"", "id":"first-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                            {"title":"Last Name", "value":"", "id":"last-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+                                            {"title":"Email", "value":"", "id":"email", "colSize":"col-lg-6", "inputType":"email", "requiredField":false},
+                                            {"title":"Phone", "value":"", "id":"phone", "colSize":"col-lg-6", "inputType":"tel", "requiredField":false},
+                                            {"title":"Customer ID", "value":"", "id":"id", "colSize":"col-lg-6", "inputType":"text"},
+                                        ];
 
 
 class ViewSingleCustomer extends Component{
@@ -23,34 +41,37 @@ class ViewSingleCustomer extends Component{
 
 
 
-        this.customerDetailsElementsTemplate = [{"title":"First Name", "value":"", "id":"first-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-                                        {"title":"Last Name", "value":"", "id":"last-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-                                        {"title":"Email", "value":"", "id":"email", "colSize":"col-lg-6", "inputType":"email", "requiredField":false},
-                                        {"title":"Phone", "value":"", "id":"phone", "colSize":"col-lg-6", "inputType":"tel", "requiredField":false},
-                                        {"title":"Customer ID", "value":"", "id":"id", "colSize":"col-lg-6", "inputType":"text"},
-                                    ];
+        // this.customerDetailsElementsTemplate = [{"title":"First Name", "value":"", "id":"first-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+        //                                 {"title":"Last Name", "value":"", "id":"last-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+        //                                 {"title":"Email", "value":"", "id":"email", "colSize":"col-lg-6", "inputType":"email", "requiredField":false},
+        //                                 {"title":"Phone", "value":"", "id":"phone", "colSize":"col-lg-6", "inputType":"tel", "requiredField":false},
+        //                                 {"title":"Customer ID", "value":"", "id":"id", "colSize":"col-lg-6", "inputType":"text"},
+        //                             ];
 
-        this.customerAddressElementsTemplate = [
-                                        {"title":"Country", "addressId":"", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-                                        {"title":"State", "addressId":"", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text", "requiredField":false},
-                                        {"title":"City", "addressId":"", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-                                        {"title":"Postal code", "addressId":"", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-                                        {"title":"Address", "addressId":"", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text", "requiredField":true},
-                                    ];
+        // this.customerAddressElementsTemplate = [
+        //                                 {"title":"Country", "addressId":"", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+        //                                 {"title":"State", "addressId":"", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text", "requiredField":false},
+        //                                 {"title":"City", "addressId":"", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+        //                                 {"title":"Postal code", "addressId":"", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
+        //                                 {"title":"Address", "addressId":"", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text", "requiredField":true},
+        //                             ];
 
         
         
         // customerDetailsElements[4].value = customerId
+
+
         
         
         this.state = {
             customerAddresses: [],
-            customerDetailsElements:this.customerDetailsElementsTemplate,
+            customerDetailsElements:customerDetailsElementsTemplate,
             selectedCustomerId: this.props.match.params.customerId,
             loadCustomerErrorModalIsOpen:false,
             loadingData:false,
             customerDetailsEditModalMessage:"",
-            customerAddressEditModalMessage:""
+            customerAddressEditModalMessage:"",
+            newlyAddedAddressIndex:-1
         };
     }
 
@@ -83,7 +104,7 @@ class ViewSingleCustomer extends Component{
 
 
     loadCustomerToDetailElements(loadedCustomer){
-        let customer = [...this.customerDetailsElementsTemplate]
+        let customer = lodashClonedeep(customerDetailsElementsTemplate)
         let addresses = []
         //firstNameIndex = customer.find(element => element.title === "First Name");
         customer.map(element => {
@@ -118,7 +139,7 @@ class ViewSingleCustomer extends Component{
         
         let addresses = []
         loadedAddresses.forEach(loadedAddress => {
-            var tmpAddress = [...this.customerAddressElementsTemplate]
+            var tmpAddress = lodashClonedeep(customerAddressElementsTemplate)
             
             tmpAddress.map(element => {
                 
@@ -224,21 +245,47 @@ class ViewSingleCustomer extends Component{
         }
 
         if (error === ""){
+            const isNewAddress = this.state.newlyAddedAddressIndex >= 0
             try{
-                this.setState({customerAddressEditModalMessage:"Please wait!"})
-                const res = await api.put(`/${this.state.selectedCustomerId}/address/${addressId}`, editedCustomerAddress);
-                if((res.status === 200) && (res.data !== -1)){
-                    let addresses = this.loadAddressToDetailElements([res.data])
-                    let tempAddresses = this.state.customerAddresses
-                    tempAddresses[index] = addresses[0]
-                    this.setState({customerAddressEditModalMessage:"", customerAddresses: [...tempAddresses]})
-                    return true;
+                // check whether the address is a newly created address or not
+                if (isNewAddress){
+                    // The address is a newly created address and does not exist in database. so it has to be created
+                    this.setState({customerAddressEditModalMessage:"Please wait!"})
+                    const res = await api.post(`/${this.state.selectedCustomerId}/address`, editedCustomerAddress);
+                    if((res.status === 200) && (res.data !== -1)){
+                        console.log(res)
+                        let addresses = this.loadAddressToDetailElements([res.data])
+                        let tempAddresses = this.state.customerAddresses
+                        tempAddresses[index] = addresses[0]
+                        this.setState({newlyAddedAddressIndex:-1, customerAddressEditModalMessage:"", customerAddresses: [...tempAddresses]})
+                        return true;
+                    }else{
+                        this.setState({customerAddressEditModalMessage:"An error occured while creating the address!"})
+                        return false;
+                    }
+
+                }else{
+                    // The address already exists in database and it has to be only updated
+                    this.setState({customerAddressEditModalMessage:"Please wait!"})
+                    const res = await api.put(`/${this.state.selectedCustomerId}/address/${addressId}`, editedCustomerAddress);
+                    if((res.status === 200) && (res.data !== -1)){
+                        let addresses = this.loadAddressToDetailElements([res.data])
+                        let tempAddresses = this.state.customerAddresses
+                        tempAddresses[index] = addresses[0]
+                        this.setState({customerAddressEditModalMessage:"", customerAddresses: [...tempAddresses]})
+                        return true;
+                    }else{
+                        this.setState({customerAddressEditModalMessage:"An error occured while updating the address!"})
+                        return false;
+                    }
+                }
+                
+            }catch{
+                if (isNewAddress){
+                    this.setState({customerAddressEditModalMessage:"An error occured while creating the address!"})
                 }else{
                     this.setState({customerAddressEditModalMessage:"An error occured while updating the address!"})
-                    return false;
                 }
-            }catch{
-                this.setState({customerAddressEditModalMessage:"An error occured while updating the address!"})
                 return false;
             }
 
@@ -267,15 +314,20 @@ class ViewSingleCustomer extends Component{
 
 
         const addNewAddressButtonClickHandler = () => {
-            var newAddress = this.customerAddressElementsTemplate
-            newAddress.key = this.state.customerAddresses.length
-            this.setState({customerAddresses:[...this.state.customerAddresses, newAddress]})
+            var newAddress = lodashClonedeep(customerAddressElementsTemplate)
+            const newlyAddedAddressIndex = this.state.customerAddresses.length
+            newAddress.key = newlyAddedAddressIndex
+            this.setState({newlyAddedAddressIndex:newlyAddedAddressIndex, customerAddresses:[...this.state.customerAddresses, newAddress]})
         }
 
         const deleteAddressHandler = (index) => {
             var tempCustomerAddresses = this.state.customerAddresses
             tempCustomerAddresses.splice(index, 1)
-            this.setState({customerAddresses: [...tempCustomerAddresses]})
+            if (index === this.state.newlyAddedAddressIndex){
+                this.setState({newlyAddedAddressIndex:-1, customerAddresses: [...tempCustomerAddresses]})
+            }else{
+                this.setState({customerAddresses: [...tempCustomerAddresses]})
+            }
         }
 
 
