@@ -2,8 +2,8 @@ import React from 'react';
 import {Modal} from 'react-bootstrap';
 
 
-// Modal to show errors
-function LoadingDataModal(props){
+// Modal to block user interface
+function BlockingModal(props){
     return(
         <Modal
             
@@ -12,10 +12,10 @@ function LoadingDataModal(props){
             keyboard={false}
         >
             <Modal.Header>
-                <Modal.Title>Please wait!</Modal.Title>
+                <Modal.Title>{props.title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                Loading Data
+                {props.message}
             </Modal.Body>
             <Modal.Footer>
             </Modal.Footer>
@@ -23,6 +23,6 @@ function LoadingDataModal(props){
     );
 }
 
-export default LoadingDataModal
+export default BlockingModal
 
 

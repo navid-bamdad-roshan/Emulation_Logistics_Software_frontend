@@ -6,7 +6,7 @@ import axios from "axios";
 import {DetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
 
 import ErrorModal from '../widgets/ErrorModal';
-import MainCard from '../widgets/MainCard';
+import BlockingModal from '../widgets/BlockingModal';
 
 const lodashClonedeep = require("lodash.clonedeep");
 
@@ -68,7 +68,12 @@ class ViewSingleCustomer extends Component{
             customerDetailsElements:customerDetailsElementsTemplate,
             selectedCustomerId: this.props.match.params.customerId,
             loadCustomerErrorModalIsOpen:false,
+            deleteCustomerErrorModalIsOpen:false,
+            deleteAddressErrorModalIsOpen:false,
             loadingData:false,
+            deleting:false,
+            addressIndexToDelete:-1,
+            blockingModalMessage:"",
             customerDetailsEditModalMessage:"",
             customerAddressEditModalMessage:"",
             newlyAddedAddressIndex:-1
@@ -297,6 +302,40 @@ class ViewSingleCustomer extends Component{
 
 
 
+    deleteCustomer(){
+        this.setState({deleting:true, blockingModalMessage:"Deleting customer"})
+        api.delete(`/${this.state.selectedCustomerId}`).then((res)=>{
+            if (res.data === "ok"){
+                this.props.history.push("/customers")
+            }else{
+                this.setState({deleteCustomerErrorModalIsOpen:true, deleting:false, blockingModalMessage:""})
+            }
+        }).catch(()=>{
+            this.setState({deleteCustomerErrorModalIsOpen:true, deleting:false, blockingModalMessage:""})
+        })
+    }
+
+
+    deleteAddress(index){
+        
+        this.setState({deleting:true, blockingModalMessage:"Deleting address"})
+
+        const addressId = this.state.customerAddresses[index][0].addressId
+
+        api.delete(`/${this.state.selectedCustomerId}/address/${addressId}`).then((res)=>{
+            if (res.data === "ok"){
+                //TODO delete address from state
+                var tempCustomerAddresses = this.state.customerAddresses
+                tempCustomerAddresses.splice(index, 1)
+                this.setState({customerAddresses: [...tempCustomerAddresses], deleting:false, blockingModalMessage:""})
+            }else{
+                this.setState({deleteAddressErrorModalIsOpen:true, deleting:false, blockingModalMessage:""})
+            }
+        }).catch(()=>{
+            this.setState({deleteAddressErrorModalIsOpen:true, deleting:false, blockingModalMessage:""})
+        })
+    }
+
 
 
     render(){
@@ -321,13 +360,23 @@ class ViewSingleCustomer extends Component{
         }
 
         const deleteAddressHandler = (index) => {
-            var tempCustomerAddresses = this.state.customerAddresses
-            tempCustomerAddresses.splice(index, 1)
             if (index === this.state.newlyAddedAddressIndex){
+                // if is newly added address means the values are being entered by user, and it does not exist in database yet 
+                var tempCustomerAddresses = lodashClonedeep(this.state.customerAddresses)
+                tempCustomerAddresses.splice(index, 1)
                 this.setState({newlyAddedAddressIndex:-1, customerAddresses: [...tempCustomerAddresses]})
             }else{
-                this.setState({customerAddresses: [...tempCustomerAddresses]})
+                this.setState({addressIndexToDelete:index})
+                this.deleteAddress(index)
             }
+        }
+
+
+        const deleteCustomerHandler = () => {
+            
+            this.deleteCustomer()
+
+
         }
 
 
@@ -352,6 +401,24 @@ class ViewSingleCustomer extends Component{
             this.loadCustomer()
         }
 
+        const deleteCustomerErrorModalCloseHandler = () => {
+            this.setState({deleteCustomerErrorModalIsOpen:false})
+        }
+
+        const deleteCustomerErrorModalRetryHandler = () => {
+            this.setState({deleteCustomerErrorModalIsOpen:false})
+            this.deleteCustomer()
+        }
+
+        const deleteAddressErrorModalCloseHandler = () => {
+            this.setState({deleteAddressErrorModalIsOpen:false, addressIndexToDelete:-1})
+        }
+
+        const deleteAddressErrorModalRetryHandler = () => {
+            this.setState({deleteAddressErrorModalIsOpen:false})
+            this.deleteAddress(this.state.addressIndexToDelete)
+        }
+
 
 
 
@@ -369,13 +436,47 @@ class ViewSingleCustomer extends Component{
                     errorText={"An error occured while loading customers!"}
                 />
 
-                {this.state.loadingData && <MainCard cardTitle={"Loading Data!"}><h3> Please wait! </h3></MainCard>}
+                <ErrorModal 
+                    show={this.state.deleteCustomerErrorModalIsOpen} 
+                    closeHandler={deleteCustomerErrorModalCloseHandler}
+                    retryHandler={deleteCustomerErrorModalRetryHandler}
+                    closeButtonTitle="Cancel"
+                    retryButtonTitle="Retry"
+                    errorTitle="Error"
+                    errorText={"An error occured while deleting the customer!"}
+                />
+
+                <ErrorModal 
+                    show={this.state.deleteAddressErrorModalIsOpen} 
+                    closeHandler={deleteAddressErrorModalCloseHandler}
+                    retryHandler={deleteAddressErrorModalRetryHandler}
+                    closeButtonTitle="Cancel"
+                    retryButtonTitle="Retry"
+                    errorTitle="Error"
+                    errorText={"An error occured while deleting the address!"}
+                />
+
+                <BlockingModal
+                    show={this.state.loadingData}
+                    title="Please wait!"
+                    message={"Loading Data!"}
+                />
+
+                <BlockingModal
+                    show={this.state.deleting}
+                    title="Please wait!"
+                    message={this.state.blockingModalMessage}
+                />
+
+                
+
+                {/* {this.state.loadingData && <MainCard cardTitle={"Loading Data!"}><h3> Please wait! </h3></MainCard>} */}
 
 
                 <div className="row">
                     <div className="col">
                         {/* Card to show customer details */}
-                        <DetailsCard editable={true} editModalMessage={this.state.customerDetailsEditModalMessage} onCardEdit={editCustomerDetailsHandler} cardTitle="Customer Details" cardId="customer-details" cardElements={this.state.customerDetailsElements} />
+                        <DetailsCard editable={true} deletable={true} editModalMessage={this.state.customerDetailsEditModalMessage} onCardDelete={deleteCustomerHandler} onCardEdit={editCustomerDetailsHandler} cardTitle="Customer Details" cardId="customer-details" cardElements={this.state.customerDetailsElements} />
                     </div>
                 </div>
 

@@ -276,6 +276,7 @@ class InputDetailsCard extends Component{
             deletable = true
         }
 
+        // if an id is passed as an argument
         if (props.id || props.id === 0){
             passIdAsArgument = true
         }
