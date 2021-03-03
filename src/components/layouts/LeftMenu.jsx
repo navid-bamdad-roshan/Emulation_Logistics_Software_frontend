@@ -52,6 +52,16 @@ class LeftMenu extends Component {
     }
     this.setState({visibleSubMenu:newVisibleSubMenu, selectedMenu:subMenuName})
   };
+  toggleSelectMenu = (subMenuName) => {
+    var visibleSubMenu = this.state.visibleSubMenu
+    var newVisibleSubMenu = ""
+    if (visibleSubMenu === subMenuName){
+      newVisibleSubMenu = ""
+    }else{
+      newVisibleSubMenu = subMenuName
+    }
+    this.setState({visibleSubMenu:newVisibleSubMenu, selectedMenu:subMenuName})
+  };
 
   getClassName = (subMenuName) => {
     if (this.state.visibleSubMenu === subMenuName){
@@ -98,7 +108,7 @@ class LeftMenu extends Component {
 
                   <li className="nav-item">
                     {/* <a href="" className="list-group-item list-group-item-action flex-column align-items-start active"> */}
-                    <Link to="/" onClick={()=>{this.toggleSubmenu("dashboard")}} className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("dashboard")}>
+                    <Link to="/" onClick={()=>{this.toggleSelectMenu("dashboard")}} className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("dashboard")}>
                       <div className="d-flex w-100 justify-content-start align-items-center">
                         <i className="fa fa-tv mr-3" aria-hidden="true"></i>
                         <span className="menu-collapsed">Dashboard</span>

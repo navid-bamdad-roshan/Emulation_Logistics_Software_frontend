@@ -18,11 +18,6 @@ const api = axios.create({
 })
 
 
-
-
-
-
-
 class ViewCustomers extends Component{
 
     constructor(){
@@ -53,25 +48,6 @@ class ViewCustomers extends Component{
     }];
 
     customerTemplate={href:"view_customer.html", id:"", firstName:"", lastName:"", email:"", phone:""}
-
-    // tableRows=[{href:"view_customer.html", id:"c_11111", firstName:"Oliver", lastName:"Oliver", email:"oliver@people.com", phone:"+987654321"},
-    //     {href:"view_customer.html", id:"c_12222", firstName:"Liam", lastName:"Liam", email:"liam@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_13333", firstName:"Sophia", lastName:"Sophia", email:"sophia@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_14444", firstName:"William", lastName:"William", email:"william@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_15555", firstName:"Emma", lastName:"Emma", email:"emma@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_22222", firstName:"Liam", lastName:"Liam", email:"liam@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_23333", firstName:"Sophia", lastName:"Sophia", email:"sophia@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_24444", firstName:"William", lastName:"William", email:"william@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_25555", firstName:"Emma", lastName:"Emma", email:"emma@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_32222", firstName:"Liam", lastName:"Liam", email:"liam@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_33333", firstName:"Sophia", lastName:"Sophia", email:"sophia@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_34444", firstName:"William", lastName:"William", email:"william@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_35555", firstName:"Emma", lastName:"Emma", email:"emma@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_42222", firstName:"Liam", lastName:"Liam", email:"liam@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_43333", firstName:"Sophia", lastName:"Sophia", email:"sophia@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_44444", firstName:"William", lastName:"William", email:"william@people.com", phone:"+227654999"},
-    //     {href:"view_customer.html", id:"c_45555", firstName:"Emma", lastName:"Emma", email:"emma@people.com", phone:"+227654999"},
-    // ]
 
 
     componentDidMount(){
@@ -121,6 +97,8 @@ class ViewCustomers extends Component{
         return(
 
             <div className="container-fluid">
+
+                {/* A modal to display error in loading the customers */}
                 <ErrorModal 
                     show={this.state.loadCustomersErrorModalIsOpen} 
                     closeHandler={errorModalCloseHandler}
@@ -136,7 +114,7 @@ class ViewCustomers extends Component{
 
                 <div className="row">
                     <div className="col">
-                        
+                        {/* A table to list all customers */}
                         <BootstrapTableCardWithFilters cardTitle="Customers" tableRowClickDestination="/customers/view/" tableCols={this.tableCols} tableRows={this.state.tableRows}/>
                     </div>
                 </div>

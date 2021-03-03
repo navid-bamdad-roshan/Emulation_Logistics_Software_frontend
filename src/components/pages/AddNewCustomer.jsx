@@ -23,22 +23,11 @@ class AddNewCustomer extends Component{
     constructor(props){
         super(props);
 
-        //var addCustomerErrorMessage = ""
-
-
-
         let customerDetailsElements = [{"title":"First Name", "value":"", "id":"first-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
                                         {"title":"Last Name", "value":"", "id":"last-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
                                         {"title":"Email", "value":"", "id":"email", "colSize":"col-lg-6", "inputType":"email", "requiredField":false},
                                         {"title":"Phone", "value":"", "id":"phone", "colSize":"col-lg-6", "inputType":"tel", "requiredField":false},
                                     ];
-
-        // let customerAddressElements = [{"title":"Country", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text"},
-        //                                 {"title":"State", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text"},
-        //                                 {"title":"City", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text"},
-        //                                 {"title":"Postal code", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text"},
-        //                                 {"title":"Address", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text"},
-        //                             ];
 
         
         this.state = {addCustomerErrorModalIsOpen:false, customerAddresses: [], customerDetailsElements:customerDetailsElements}
@@ -47,15 +36,14 @@ class AddNewCustomer extends Component{
 
     
 
-
+ 
+    // extract the info of new customer and its addresses from the customerDetailsElement and customerAddresses
+    // send an api request to create a new customer in database
     async submitCustomerHandler(){
-        //TODO submit the customer to backend
         //customer details are in state
 
         var error = "";
-
-
-
+        
         var newCustomer = {
             firstName: this.state.customerDetailsElements.find(element=>element.id === "first-name").value,
             lastName: this.state.customerDetailsElements.find(element=>element.id === "last-name").value,
@@ -82,20 +70,6 @@ class AddNewCustomer extends Component{
             newCustomer.addresses.push(tempAddress)
         })
 
-
-
-        // if (newCustomer.firstName === ""){
-        // }
-
-
-        // const requestOptions = {
-        //     method: 'PUT',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(newCustomer)
-        // };
-        // fetch('http://localhost:8080/customer/add-customer', requestOptions)
-        //     .then(response => response.json())
-        //     .then(data => this.setState({ postId: data.id }));
 
         if (error === ""){
             try{

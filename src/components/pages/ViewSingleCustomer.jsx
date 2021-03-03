@@ -38,30 +38,6 @@ class ViewSingleCustomer extends Component{
 
     constructor(props){
         super(props);
-
-
-
-        // this.customerDetailsElementsTemplate = [{"title":"First Name", "value":"", "id":"first-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-        //                                 {"title":"Last Name", "value":"", "id":"last-name", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-        //                                 {"title":"Email", "value":"", "id":"email", "colSize":"col-lg-6", "inputType":"email", "requiredField":false},
-        //                                 {"title":"Phone", "value":"", "id":"phone", "colSize":"col-lg-6", "inputType":"tel", "requiredField":false},
-        //                                 {"title":"Customer ID", "value":"", "id":"id", "colSize":"col-lg-6", "inputType":"text"},
-        //                             ];
-
-        // this.customerAddressElementsTemplate = [
-        //                                 {"title":"Country", "addressId":"", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-        //                                 {"title":"State", "addressId":"", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text", "requiredField":false},
-        //                                 {"title":"City", "addressId":"", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-        //                                 {"title":"Postal code", "addressId":"", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-        //                                 {"title":"Address", "addressId":"", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text", "requiredField":true},
-        //                             ];
-
-        
-        
-        // customerDetailsElements[4].value = customerId
-
-
-        
         
         this.state = {
             customerAddresses: [],
@@ -89,6 +65,7 @@ class ViewSingleCustomer extends Component{
         this.loadCustomer()
     }
 
+    // API request to get the customer
     async loadCustomer(){
         try{
             this.setState({loadingData:true})
@@ -107,7 +84,7 @@ class ViewSingleCustomer extends Component{
         }
     }
 
-
+    // load json string customer to customerDetailsElementsTemplate 
     loadCustomerToDetailElements(loadedCustomer){
         let customer = lodashClonedeep(customerDetailsElementsTemplate)
         let addresses = []
@@ -139,15 +116,12 @@ class ViewSingleCustomer extends Component{
         return ([customer, addresses]);
     }
 
-
+    // load json string customer addresses to customerAddressElementsTemplate
     loadAddressToDetailElements(loadedAddresses){
-        
         let addresses = []
         loadedAddresses.forEach(loadedAddress => {
             var tmpAddress = lodashClonedeep(customerAddressElementsTemplate)
-            
             tmpAddress.map(element => {
-                
                 switch(element.id){
                     case "country":
                         element.value = loadedAddress.country
@@ -180,6 +154,9 @@ class ViewSingleCustomer extends Component{
     }
 
 
+    // Input: editted customer details 
+    //      update the customerDetailsElement in state
+    //      send an api request to update the customer in database
     async updateCustomer(editedCustomerDetails){
         var error = "";
 
@@ -198,10 +175,6 @@ class ViewSingleCustomer extends Component{
                 }
             }
         })
-
-        // if(editedCustomer.firstName === "" || editedCustomer.lastName === ""){
-        //     error = "Please fill the required fields!"
-        // }
 
         if (error === ""){
             try{
@@ -227,12 +200,12 @@ class ViewSingleCustomer extends Component{
     }
 
 
+    // Input: editted customer address details and its index 
+    //      update the customerAddressElement in state
+    //      send an api request to update the customer in database
     async updateAddress(index, editedCustomerAddressDetails){
-        
         var error = "";
-
         const addressId = editedCustomerAddressDetails[0].addressId;
-
         editedCustomerAddressDetails.forEach(element => {
             if (element.requiredField){
                 if (element.value === ""){
@@ -253,6 +226,8 @@ class ViewSingleCustomer extends Component{
             const isNewAddress = this.state.newlyAddedAddressIndex >= 0
             try{
                 // check whether the address is a newly created address or not
+                //      newly created address: a new address in process of initialization. 
+                //      The newly created address does not exist in the database yet.
                 if (isNewAddress){
                     // The address is a newly created address and does not exist in database. so it has to be created
                     this.setState({customerAddressEditModalMessage:"Please wait!"})
@@ -301,7 +276,7 @@ class ViewSingleCustomer extends Component{
     }
 
 
-
+    // send an api request to delete this customer
     deleteCustomer(){
         this.setState({deleting:true, blockingModalMessage:"Deleting customer"})
         api.delete(`/${this.state.selectedCustomerId}`).then((res)=>{
@@ -315,7 +290,7 @@ class ViewSingleCustomer extends Component{
         })
     }
 
-
+    // send an api request to delete the address
     deleteAddress(index){
         
         this.setState({deleting:true, blockingModalMessage:"Deleting address"})
@@ -340,18 +315,6 @@ class ViewSingleCustomer extends Component{
 
     render(){
 
-
-        // const customerAddressElementsTemplate = [{"title":"Country", "value":"", "id":"country", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-        //                                             {"title":"State", "value":"", "id":"state", "colSize":"col-lg-6", "inputType":"text", "requiredField":false},
-        //                                             {"title":"City", "value":"", "id":"city", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-        //                                             {"title":"Postal code", "value":"", "id":"postal-code", "colSize":"col-lg-6", "inputType":"text", "requiredField":true},
-        //                                             {"title":"Address", "value":"", "id":"address", "colSize":"col-lg-12", "inputType":"text", "requiredField":true},
-        //                                         ];
-
-
-
-
-
         const addNewAddressButtonClickHandler = () => {
             var newAddress = lodashClonedeep(customerAddressElementsTemplate)
             const newlyAddedAddressIndex = this.state.customerAddresses.length
@@ -373,10 +336,7 @@ class ViewSingleCustomer extends Component{
 
 
         const deleteCustomerHandler = () => {
-            
             this.deleteCustomer()
-
-
         }
 
 
@@ -426,6 +386,8 @@ class ViewSingleCustomer extends Component{
 
         return( 
             <div className="container-fluid">
+
+                {/* A modal to display error in loading the customer */}
                 <ErrorModal 
                     show={this.state.loadCustomerErrorModalIsOpen} 
                     closeHandler={errorModalCloseHandler}
@@ -436,6 +398,7 @@ class ViewSingleCustomer extends Component{
                     errorText={"An error occured while loading customers!"}
                 />
 
+                {/* A modal to display error in deleting the customer */}
                 <ErrorModal 
                     show={this.state.deleteCustomerErrorModalIsOpen} 
                     closeHandler={deleteCustomerErrorModalCloseHandler}
@@ -446,6 +409,7 @@ class ViewSingleCustomer extends Component{
                     errorText={"An error occured while deleting the customer!"}
                 />
 
+                {/* A modal to display error in deleting an address */}
                 <ErrorModal 
                     show={this.state.deleteAddressErrorModalIsOpen} 
                     closeHandler={deleteAddressErrorModalCloseHandler}
@@ -456,12 +420,14 @@ class ViewSingleCustomer extends Component{
                     errorText={"An error occured while deleting the address!"}
                 />
 
+                {/* A modal to display message of loading data */}
                 <BlockingModal
                     show={this.state.loadingData}
                     title="Please wait!"
                     message={"Loading Data!"}
                 />
 
+                {/* A modal to display message of deleting data */}
                 <BlockingModal
                     show={this.state.deleting}
                     title="Please wait!"
@@ -469,10 +435,6 @@ class ViewSingleCustomer extends Component{
                 />
 
                 
-
-                {/* {this.state.loadingData && <MainCard cardTitle={"Loading Data!"}><h3> Please wait! </h3></MainCard>} */}
-
-
                 <div className="row">
                     <div className="col">
                         {/* Card to show customer details */}

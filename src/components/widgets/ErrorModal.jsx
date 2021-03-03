@@ -19,12 +19,16 @@ function ErrorModal(props){
                 {props.errorText}
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary" onClick={props.closeHandler}>
-                    {props.closeButtonTitle}
-                </Button>
-                <Button variant="primary" onClick={props.retryHandler}>
-                    {props.retryButtonTitle}
-                </Button>
+                {props.closeHandler && 
+                    <Button variant="primary" onClick={props.closeHandler}>
+                        {props.closeButtonTitle? props.closeButtonTitle: "Close"}
+                    </Button>
+                }
+                {props.retryHandler &&
+                    <Button variant="primary" onClick={props.retryHandler}>
+                        {props.retryButtonTitle? props.retryButtonTitle:"Retry"}
+                    </Button>
+                }
             </Modal.Footer>
         </Modal>
     );
