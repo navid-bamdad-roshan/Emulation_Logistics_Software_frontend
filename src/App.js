@@ -2,6 +2,11 @@ import React, {Component} from 'react'
 //import logo from './logo.svg';
 //import './App.css';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
+
+
 // Import layouts
 import LeftMenu from './components/layouts/LeftMenu';
 import Header from './components/layouts/Header';
@@ -26,6 +31,10 @@ import Dashboard from './components/pages/Dashboard';
 import AddNewCustomer from './components/pages/AddNewCustomer';
 
 
+
+
+
+
 class App extends Component{
 
   state = {};
@@ -33,49 +42,51 @@ class App extends Component{
   
   render(){
     return(
-      <Router>
-          <LeftMenu></LeftMenu>
-          <div className="main-content" id="panel">
-            <SearchBarHeader/>
-            <Header/>
+      <Provider store={store}>
+        <Router>
+            <LeftMenu></LeftMenu>
+            <div className="main-content" id="panel">
+              <SearchBarHeader/>
+              <Header/>
 
 
 
-            <div className='mt--6'>
+              <div className='mt--6'>
 
 
 
-              <Switch>
-                <Route path="/customers">
-                  <CustomersRoute />
-                </Route>
-                <Route exact path="/">
-                  <Dashboard/>
-                </Route>
-                <Route path="/">
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <h1>  TODO implement 404 Not Found </h1>
-                </Route>
-              </Switch>
+                <Switch>
+                  <Route path="/customers">
+                    <CustomersRoute />
+                  </Route>
+                  <Route exact path="/">
+                    <Dashboard/>
+                  </Route>
+                  <Route path="/">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h1>  TODO implement 404 Not Found </h1>
+                  </Route>
+                </Switch>
 
 
-              {/* <Dashboard/> */}
+                {/* <Dashboard/> */}
 
-              {/* <ViewCustomers/> */}
+                {/* <ViewCustomers/> */}
 
-              {/* <ViewCustomersOld/> */}
+                {/* <ViewCustomersOld/> */}
 
-              {/* <ViewSingleCustomer/> */}
+                {/* <ViewSingleCustomer/> */}
 
+              </div>
+              <Footer/>
             </div>
-            <Footer/>
-          </div>
-      </Router>
+        </Router>
+      </Provider>
     );
   }
 }

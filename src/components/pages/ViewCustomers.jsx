@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 
+import { connect } from 'react-redux';
+
+import { login } from '../../redux/actions/loginAction';
+
 import axios from "axios";
 
 
@@ -49,9 +53,15 @@ class ViewCustomers extends Component{
 
     customerTemplate={href:"view_customer.html", id:"", firstName:"", lastName:"", email:"", phone:""}
 
+    
 
     componentDidMount(){
+        //tmp
+        this.props.login("navid", "kkjjhhggffddssaa")
+
         this.loadCustomers()
+
+
     }
 
     async loadCustomers(){
@@ -110,10 +120,15 @@ class ViewCustomers extends Component{
                 />
 
                 {this.state.loadingData && <MainCard cardTitle={"Loading Data!"}><h3> Please wait! </h3></MainCard>}
+                
 
 
                 <div className="row">
                     <div className="col">
+
+                        {/* tmp */}
+                        <h1>{this.props.user.username}</h1>
+
                         {/* A table to list all customers */}
                         <BootstrapTableCardWithFilters cardTitle="Customers" tableRowClickDestination="/customers/view/" tableCols={this.tableCols} tableRows={this.state.tableRows}/>
                     </div>
@@ -124,4 +139,8 @@ class ViewCustomers extends Component{
     }
 }
 
-export default withRouter(ViewCustomers);
+const mapStateToProps = state => ({
+    user: state.login.user
+})
+
+export default connect(mapStateToProps, { login })(withRouter(ViewCustomers));
