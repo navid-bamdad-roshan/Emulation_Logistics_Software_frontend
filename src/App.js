@@ -29,6 +29,7 @@ import ViewCustomers from './components/pages/ViewCustomers';
 import Footer from './components/layouts/Footer';
 import Dashboard from './components/pages/Dashboard';
 import AddNewCustomer from './components/pages/AddNewCustomer';
+import Login from './components/pages/Login';
 
 
 
@@ -39,57 +40,68 @@ class App extends Component{
 
   state = {};
   
-  
   render(){
+
     return(
       <Provider store={store}>
         <Router>
-            <LeftMenu></LeftMenu>
-            <div className="main-content" id="panel">
-              <SearchBarHeader/>
-              <Header/>
-
-
-
-              <div className='mt--6'>
-
-
-
-                <Switch>
-                  <Route path="/customers">
-                    <CustomersRoute />
-                  </Route>
-                  <Route exact path="/">
-                    <Dashboard/>
-                  </Route>
-                  <Route path="/">
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <h1>  TODO implement 404 Not Found </h1>
-                  </Route>
-                </Switch>
-
-
-                {/* <Dashboard/> */}
-
-                {/* <ViewCustomers/> */}
-
-                {/* <ViewCustomersOld/> */}
-
-                {/* <ViewSingleCustomer/> */}
-
+          <Switch>
+            <Route path="/login">
+              <Login/>
+            </Route>
+            <Route path="/">
+              <LeftMenu></LeftMenu>
+              <div className="main-content" id="panel">
+                <SearchBarHeader/>
+                <Header/>
+                <div className='mt--6'>
+                  <MenuRoutes/>
+                </div>
+                <Footer/>
               </div>
-              <Footer/>
-            </div>
+            </Route>
+          </Switch>
         </Router>
       </Provider>
     );
   }
 }
+
+
+
+function MenuRoutes() {
+
+  return (
+    <div>
+
+      {/* <Link to='/customers/new'>/customers/new</Link>
+      <br/>
+      <Link to='/customers/view/gggggg'>/customers/view/gggggg</Link>
+      <br/>
+      <Link to='/customers'>/customers</Link>
+      <br/> */}
+
+      <Switch>
+        <Route path="/customers">
+          <CustomersRoute />
+        </Route>
+        <Route exact path="/">
+          <Dashboard/>
+        </Route>
+        <Route path="/">
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <h1>  TODO implement 404 Not Found </h1>
+        </Route>
+      </Switch>
+    </div>
+  );
+}
+
 
 
 
@@ -120,5 +132,6 @@ function CustomersRoute() {
     </div>
   );
 }
+
 
 export default App;

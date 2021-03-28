@@ -1,12 +1,12 @@
 import {LOGIN, LOGOUT} from './types';
 
-export function login(username, JwtToken){
+export function login(username, jwtToken){
     return function (dispatch){
         dispatch({
             type: LOGIN,
             payload: {
                 username: username,
-                JwtToken: JwtToken
+                jwtToken: jwtToken
             }
         })
     }

@@ -57,7 +57,7 @@ class ViewCustomers extends Component{
 
     componentDidMount(){
         //tmp
-        this.props.login("navid", "kkjjhhggffddssaa")
+        //this.props.login("navid", "kkjjhhggffddssaa")
 
         this.loadCustomers()
 

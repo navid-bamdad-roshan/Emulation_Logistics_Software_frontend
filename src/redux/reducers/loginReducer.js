@@ -7,7 +7,7 @@ const initialState = {
     }
 }
 
-export default function (state=initialState, action){
+function login (state=initialState, action){
     switch(action.type){
         case LOGIN:
             return {user: action.payload}
@@ -17,3 +17,5 @@ export default function (state=initialState, action){
             return state
     }
 };
+
+export default login

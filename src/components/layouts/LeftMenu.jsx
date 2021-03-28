@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 
+import {withRouter} from "react-router-dom";
+
 import {Link} from "react-router-dom";
+
+import { connect } from 'react-redux';
 
 
 
@@ -90,6 +94,22 @@ class LeftMenu extends Component {
 
 
   render() {
+
+    console.log("this.props.user.username")
+    console.log(this.props.user.username)
+    console.log(this.props.user.jwtToken)
+
+    if(this.props.user){
+      console.log("come here")
+      console.log(!this.props.user.jwtToken)
+      if(!this.props.user.jwtToken || this.props.user.jwtToken===""){
+        console.log("GOTO LOGIN")
+        this.props.history.push(`/login`)
+      }
+    }else{
+      this.props.history.push(`/login`)
+    }
+
     return (
       <nav className="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
          <div className="scrollbar-inner">
@@ -245,4 +265,9 @@ class LeftMenu extends Component {
   }
 }
 
-export default LeftMenu;
+
+const mapStateToProps = state => ({
+  user: state.login.user
+})
+
+export default connect(mapStateToProps, {})(withRouter(LeftMenu));
