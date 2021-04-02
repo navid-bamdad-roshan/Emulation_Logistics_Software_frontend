@@ -95,15 +95,9 @@ class LeftMenu extends Component {
 
   render() {
 
-    console.log("this.props.user.username")
-    console.log(this.props.user.username)
-    console.log(this.props.user.jwtToken)
-
+    // redirect to login page if the user has not logged in
     if(this.props.user){
-      console.log("come here")
-      console.log(!this.props.user.jwtToken)
       if(!this.props.user.jwtToken || this.props.user.jwtToken===""){
-        console.log("GOTO LOGIN")
         this.props.history.push(`/login`)
       }
     }else{

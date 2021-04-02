@@ -1,8 +1,7 @@
-
-
-
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
+
+import { connect } from 'react-redux';
 
 import axios from "axios";
 
@@ -11,9 +10,9 @@ import {InputDetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCar
 import ErrorModal from '../widgets/ErrorModal';
 
 
-const api = axios.create({
-    baseURL: "http://localhost:8080/customers"
-})
+// const api = axios.create({
+//     baseURL: "http://localhost:8080/customers"
+// })
 
 class AddNewCustomer extends Component{
 
@@ -73,6 +72,18 @@ class AddNewCustomer extends Component{
 
         if (error === ""){
             try{
+                let headers= {
+                    'Authorization': `Bearer ${this.props.user.jwtToken.jwt}`,
+                    'Content-Type': 'application/json',
+                }
+    
+    
+                const api = axios.create({
+                    baseURL: "http://localhost:8080/customers",
+                    //withCredentials: true,
+                    headers: headers
+                })
+                
                 const res = await api.post('', newCustomer);
                 if((res.status === 200) && (res.data !== -1)){
                 console.log("Successful put request")
@@ -207,4 +218,9 @@ class AddNewCustomer extends Component{
     }
 }
 
-export default withRouter(AddNewCustomer);
+const mapStateToProps = state => ({
+    user: state.login.user
+})
+
+
+export default connect(mapStateToProps, {})(withRouter(AddNewCustomer));

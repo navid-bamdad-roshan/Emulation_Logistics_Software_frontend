@@ -3,7 +3,6 @@ import {withRouter} from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import { login } from '../../redux/actions/loginAction';
 
 import axios from "axios";
 
@@ -17,9 +16,7 @@ import ErrorModal from '../widgets/ErrorModal';
 import MainCard from '../widgets/MainCard';
 
 
-const api = axios.create({
-    baseURL: "http://localhost:8080/customers"
-})
+
 
 
 class ViewCustomers extends Component{
@@ -56,17 +53,21 @@ class ViewCustomers extends Component{
     
 
     componentDidMount(){
-        //tmp
-        //this.props.login("navid", "kkjjhhggffddssaa")
-
         this.loadCustomers()
-
-
     }
 
     async loadCustomers(){
         try{
             this.setState({loadingData:true})
+            let headers= {
+                    'Authorization': `Bearer ${this.props.user.jwtToken.jwt}`,
+                    'Content-Type': 'application/json',
+                }
+            const api = axios.create({
+                baseURL: "http://localhost:8080/customers",
+                //withCredentials: true,
+                headers: headers
+            })
             const res = await api.get('');
             if(res.status === 200){
                 this.setCustomersToTableRows(res.data)
@@ -125,10 +126,6 @@ class ViewCustomers extends Component{
 
                 <div className="row">
                     <div className="col">
-
-                        {/* tmp */}
-                        <h1>{this.props.user.username}</h1>
-
                         {/* A table to list all customers */}
                         <BootstrapTableCardWithFilters cardTitle="Customers" tableRowClickDestination="/customers/view/" tableCols={this.tableCols} tableRows={this.state.tableRows}/>
                     </div>
@@ -143,4 +140,4 @@ const mapStateToProps = state => ({
     user: state.login.user
 })
 
-export default connect(mapStateToProps, { login })(withRouter(ViewCustomers));
+export default connect(mapStateToProps, {})(withRouter(ViewCustomers));

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
 
+import { connect } from 'react-redux';
+
 import axios from "axios";
 
 import {DetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
@@ -11,9 +13,9 @@ import BlockingModal from '../widgets/BlockingModal';
 const lodashClonedeep = require("lodash.clonedeep");
 
 
-const api = axios.create({
-    baseURL: "http://localhost:8080/customers"
-})
+// const api = axios.create({
+//     baseURL: "http://localhost:8080/customers"
+// })
 
 
 const customerAddressElementsTemplate = [
@@ -69,6 +71,18 @@ class ViewSingleCustomer extends Component{
     async loadCustomer(){
         try{
             this.setState({loadingData:true})
+            let headers= {
+                'Authorization': `Bearer ${this.props.user.jwtToken.jwt}`,
+                'Content-Type': 'application/json',
+            }
+
+
+            const api = axios.create({
+                baseURL: "http://localhost:8080/customers",
+                //withCredentials: true,
+                headers: headers
+            })
+
             const res = await api.get(`/${this.state.selectedCustomerId}`);
             if(res.status === 200){
                 
@@ -179,6 +193,17 @@ class ViewSingleCustomer extends Component{
         if (error === ""){
             try{
                 this.setState({customerDetailsEditModalMessage:"Please wait!"})
+                let headers= {
+                    'Authorization': `Bearer ${this.props.user.jwtToken.jwt}`,
+                    'Content-Type': 'application/json',
+                }
+
+
+                const api = axios.create({
+                    baseURL: "http://localhost:8080/customers",
+                    //withCredentials: true,
+                    headers: headers
+                })
                 const res = await api.put(`/${this.state.selectedCustomerId}`, editedCustomer);
                 if((res.status === 200) && (res.data !== -1)){
                     let [tmpCustomer, tmpAddresses] = this.loadCustomerToDetailElements(res.data)
@@ -231,6 +256,17 @@ class ViewSingleCustomer extends Component{
                 if (isNewAddress){
                     // The address is a newly created address and does not exist in database. so it has to be created
                     this.setState({customerAddressEditModalMessage:"Please wait!"})
+                    let headers= {
+                        'Authorization': `Bearer ${this.props.user.jwtToken.jwt}`,
+                        'Content-Type': 'application/json',
+                    }
+    
+    
+                    const api = axios.create({
+                        baseURL: "http://localhost:8080/customers",
+                        //withCredentials: true,
+                        headers: headers
+                    })
                     const res = await api.post(`/${this.state.selectedCustomerId}/address`, editedCustomerAddress);
                     if((res.status === 200) && (res.data !== -1)){
                         console.log(res)
@@ -247,6 +283,17 @@ class ViewSingleCustomer extends Component{
                 }else{
                     // The address already exists in database and it has to be only updated
                     this.setState({customerAddressEditModalMessage:"Please wait!"})
+                    let headers= {
+                        'Authorization': `Bearer ${this.props.user.jwtToken.jwt}`,
+                        'Content-Type': 'application/json',
+                    }
+    
+    
+                    const api = axios.create({
+                        baseURL: "http://localhost:8080/customers",
+                        //withCredentials: true,
+                        headers: headers
+                    })
                     const res = await api.put(`/${this.state.selectedCustomerId}/address/${addressId}`, editedCustomerAddress);
                     if((res.status === 200) && (res.data !== -1)){
                         let addresses = this.loadAddressToDetailElements([res.data])
@@ -279,6 +326,17 @@ class ViewSingleCustomer extends Component{
     // send an api request to delete this customer
     deleteCustomer(){
         this.setState({deleting:true, blockingModalMessage:"Deleting customer"})
+        let headers= {
+            'Authorization': `Bearer ${this.props.user.jwtToken.jwt}`,
+            'Content-Type': 'application/json',
+        }
+
+
+        const api = axios.create({
+            baseURL: "http://localhost:8080/customers",
+            //withCredentials: true,
+            headers: headers
+        })
         api.delete(`/${this.state.selectedCustomerId}`).then((res)=>{
             if (res.data === "ok"){
                 this.props.history.push("/customers")
@@ -296,6 +354,18 @@ class ViewSingleCustomer extends Component{
         this.setState({deleting:true, blockingModalMessage:"Deleting address"})
 
         const addressId = this.state.customerAddresses[index][0].addressId
+
+        let headers= {
+            'Authorization': `Bearer ${this.props.user.jwtToken.jwt}`,
+            'Content-Type': 'application/json',
+        }
+
+
+        const api = axios.create({
+            baseURL: "http://localhost:8080/customers",
+            //withCredentials: true,
+            headers: headers
+        })
 
         api.delete(`/${this.state.selectedCustomerId}/address/${addressId}`).then((res)=>{
             if (res.data === "ok"){
@@ -468,4 +538,8 @@ class ViewSingleCustomer extends Component{
     }
 }
 
-export default withRouter(ViewSingleCustomer);
+const mapStateToProps = state => ({
+    user: state.login.user
+})
+
+export default connect(mapStateToProps, {})(withRouter(ViewSingleCustomer));

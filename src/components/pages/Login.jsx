@@ -40,7 +40,6 @@ class Login extends Component {
             }
             const res = await api.post('', credentials);
             if(res.status === 200){
-                console.log("Successful login")
                 const jwtToken = res.data
                 this.props.login(username, jwtToken)
                 this.props.history.push(`/`);
@@ -76,7 +75,6 @@ class Login extends Component {
         }
     
         const onLoginButtonClickHandler = (e) => {
-            console.log("start login")
             this.loginUser(this.state.username, this.state.password)
     
         }
