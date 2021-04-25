@@ -25,7 +25,9 @@ import {
 // Import pages
 import ViewSingleCustomer from './components/pages/ViewSingleCustomer';
 import ViewCustomers from './components/pages/ViewCustomers';
-//import ViewCustomersOld from './components/pages/ViewCustomersOld';
+
+import ViewOrders from './components/pages/ViewOrders';
+
 import Footer from './components/layouts/Footer';
 import Dashboard from './components/pages/Dashboard';
 import AddNewCustomer from './components/pages/AddNewCustomer';
@@ -85,6 +87,9 @@ function MenuRoutes() {
         <Route path="/customers">
           <CustomersRoute />
         </Route>
+        <Route path="/orders">
+          <OrdersRoute />
+        </Route>
         <Route exact path="/">
           <Dashboard/>
         </Route>
@@ -127,6 +132,28 @@ function CustomersRoute() {
         </Route>
         <Route path={match.path}>
           <ViewCustomers/>
+        </Route>
+      </Switch>
+    </div>
+  );
+}
+
+
+function OrdersRoute() {
+  let match = useRouteMatch();
+
+  return (
+    <div>
+
+      <Switch>
+        {/* <Route path={`${match.path}/new`}>
+          <AddNewOrder/>
+        </Route>
+        <Route path={`${match.path}/view/:orderId`}>
+          <ViewSingleOrder orderId={useParams().orderId}/>
+        </Route> */}
+        <Route path={match.path}>
+          <ViewOrders/>
         </Route>
       </Switch>
     </div>
