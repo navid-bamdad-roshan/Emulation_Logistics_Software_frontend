@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import {withRouter} from "react-router-dom";
-
 import axios from "axios";
-
 import { connect } from 'react-redux';
-
 import { login } from '../../redux/actions/loginAction';
-
 import ErrorModal from '../widgets/ErrorModal';
-
-
 
 const api = axios.create({
     baseURL: "http://localhost:8080/authenticate"
 })
-
-
 
 class Login extends Component {
 
@@ -28,9 +20,6 @@ class Login extends Component {
             isErrorModalOpen: false
         }
     }
-
-
-
 
     async loginUser(username, password){
         try{
@@ -57,15 +46,10 @@ class Login extends Component {
             }else{
                 this.setState({isErrorModalOpen:true})
             }
-
-            
         }
     }
 
     render() {
-
-
-
         const onUsernameInputValueChangeHandler = (e) => {
             this.setState({username: e.target.value})
         }
@@ -82,8 +66,6 @@ class Login extends Component {
         const errorModalCloseHandler = () => {
             this.setState({isErrorModalOpen:false})
         }
-
-
 
         return (
             <div className="bg-default">
@@ -237,16 +219,6 @@ class Login extends Component {
                                                 />
                                                 </div>
                                             </div>
-                                            {/* <div className="custom-control custom-control-alternative custom-checkbox">
-                                                <input
-                                                className="custom-control-input"
-                                                id=" customCheckLogin"
-                                                type="checkbox"
-                                                />
-                                                <label className="custom-control-label" for=" customCheckLogin">
-                                                <span className="text-muted">Remember me</span>
-                                                </label>
-                                            </div> */}
                                             <div className="text-center">
                                                 <button type="button" className="btn btn-primary my-4" onClick={onLoginButtonClickHandler}>
                                                     Login

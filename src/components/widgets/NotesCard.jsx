@@ -49,8 +49,6 @@ class NotesCard extends Component{
         }
 
         const saveEditModal = () => {
-
-            // TODO edit the note with id "this.currentEditingNoteId" in backend
             let tempIndex = this.state.notes.findIndex(element => element.id === this.currentEditingNoteId)
             let tempNotes = this.state.notes
             tempNotes[tempIndex].text = this.state.currentEditingNoteText
@@ -60,8 +58,6 @@ class NotesCard extends Component{
 
 
         const addNewNote = () => {
-            //TODO add new note with text "this.newNoteText" in backend
-
             if (this.newNoteText === ""){
                 // If the note text is "", do nothing
                 return

@@ -1,17 +1,8 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
-
 // React table
 import BootstrapTableCard from '../widgets/TableCard/BootstrapTableCard';
-
-
-
-
 import NotesCard from '../widgets/NotesCard';
-
-
-
-
 
 class Dashboard extends Component{
     render(){
@@ -44,8 +35,6 @@ class Dashboard extends Component{
                         {id:"6666", receiver:"Receiver 6", origin:"City 61", destination:"City 62", date:"2020/07/18", status:"Status"},
         ]
 
-
-
         return(
             <div className="container-fluid">
                 <div className="row">
@@ -54,15 +43,11 @@ class Dashboard extends Component{
                     </div>
                 </div>
 
-
                 <div className="row">
                     <div className="col-12">
                         <NotesCard/>
                     </div>
                 </div>
-
-
-
             </div>
         );
     }

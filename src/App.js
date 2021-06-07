@@ -1,7 +1,4 @@
 import React, {Component} from 'react'
-//import logo from './logo.svg';
-//import './App.css';
-
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
@@ -70,19 +67,10 @@ class App extends Component{
 }
 
 
-
 function MenuRoutes() {
 
   return (
     <div>
-
-      {/* <Link to='/customers/new'>/customers/new</Link>
-      <br/>
-      <Link to='/customers/view/gggggg'>/customers/view/gggggg</Link>
-      <br/>
-      <Link to='/customers'>/customers</Link>
-      <br/> */}
-
       <Switch>
         <Route path="/customers">
           <CustomersRoute />
@@ -108,23 +96,13 @@ function MenuRoutes() {
 }
 
 
-
-
 function CustomersRoute() {
   let match = useRouteMatch();
 
   return (
     <div>
-
-      {/* <Link to='/customers/new'>/customers/new</Link>
-      <br/>
-      <Link to='/customers/view/gggggg'>/customers/view/gggggg</Link>
-      <br/>
-      <Link to='/customers'>/customers</Link>
-      <br/> */}
-
       <Switch>
-      <Route path={`${match.path}/new`}>
+        <Route path={`${match.path}/new`}>
           <AddNewCustomer/>
         </Route>
         <Route path={`${match.path}/view/:customerId`}>
@@ -144,14 +122,7 @@ function OrdersRoute() {
 
   return (
     <div>
-
       <Switch>
-        {/* <Route path={`${match.path}/new`}>
-          <AddNewOrder/>
-        </Route>
-        <Route path={`${match.path}/view/:orderId`}>
-          <ViewSingleOrder orderId={useParams().orderId}/>
-        </Route> */}
         <Route path={match.path}>
           <ViewOrders/>
         </Route>

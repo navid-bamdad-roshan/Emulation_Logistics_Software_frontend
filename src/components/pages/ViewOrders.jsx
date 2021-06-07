@@ -1,23 +1,11 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-
 import { connect } from 'react-redux';
-
-
 import axios from "axios";
-
-
-
 // React table
 import BootstrapTableCardWithFilters from '../widgets/TableCard/BootstrapTableCardWithFilters';
-
-
 import ErrorModal from '../widgets/ErrorModal';
 import MainCard from '../widgets/MainCard';
-
-
-
-
 
 class ViewOrders extends Component{
 
@@ -29,7 +17,6 @@ class ViewOrders extends Component{
             tableRows:[]
         }
     }
-
 
     tableCols=[{
         dataField: 'id',
@@ -59,8 +46,6 @@ class ViewOrders extends Component{
 
     orderTemplate={href:"view_order.html", id:"", senderFirstName:"", senderLastName:"", receiverFirstName:"", receiverLastName:"", description:"", packageCount:"", shipmentsCount:""}
 
-    
-
     componentDidMount(){
         this.loadOrders()
     }
@@ -74,7 +59,6 @@ class ViewOrders extends Component{
                 }
             const api = axios.create({
                 baseURL: "http://localhost:8080/orders",
-                //withCredentials: true,
                 headers: headers
             })
             const res = await api.get('');
@@ -115,9 +99,7 @@ class ViewOrders extends Component{
 
 
         return(
-
             <div className="container-fluid">
-
                 {/* A modal to display error in loading the orders */}
                 <ErrorModal 
                     show={this.state.loadOrdersErrorModalIsOpen} 
@@ -131,8 +113,6 @@ class ViewOrders extends Component{
 
                 {this.state.loadingData && <MainCard cardTitle={"Loading Data!"}><h3> Please wait! </h3></MainCard>}
                 
-
-
                 <div className="row">
                     <div className="col">
                         {/* A table to list all orders */}

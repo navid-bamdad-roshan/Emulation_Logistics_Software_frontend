@@ -1,23 +1,11 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-
 import { connect } from 'react-redux';
-
-
 import axios from "axios";
-
-
-
 // React table
 import BootstrapTableCardWithFilters from '../widgets/TableCard/BootstrapTableCardWithFilters';
-
-
 import ErrorModal from '../widgets/ErrorModal';
 import MainCard from '../widgets/MainCard';
-
-
-
-
 
 class ViewCustomers extends Component{
 
@@ -29,7 +17,6 @@ class ViewCustomers extends Component{
             tableRows:[]
         }
     }
-
 
     tableCols=[{
         dataField: 'id',
@@ -50,8 +37,6 @@ class ViewCustomers extends Component{
 
     customerTemplate={href:"view_customer.html", id:"", firstName:"", lastName:"", email:"", phone:""}
 
-    
-
     componentDidMount(){
         this.loadCustomers()
     }
@@ -65,7 +50,6 @@ class ViewCustomers extends Component{
                 }
             const api = axios.create({
                 baseURL: "http://localhost:8080/customers",
-                //withCredentials: true,
                 headers: headers
             })
             const res = await api.get('');

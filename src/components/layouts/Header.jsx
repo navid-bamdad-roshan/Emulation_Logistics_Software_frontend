@@ -67,14 +67,13 @@ class Header extends Component{
                 break;
             }
         }
-
+        
         return(
             <div className="header bg-primary pb-6">
                 <div className="container-fluid">
                     <div className="header-body">
                         <div className="row align-items-center py-4">
                             <div className="col-12">
-                                {/* <h6 className="h2 text-white d-inline-block mb-0">Default</h6> */}
                                 <nav aria-label="breadcrumb" className="d-none d-md-inline-block ml-md-4">
                                     <ol className="breadcrumb breadcrumb-links breadcrumb-dark">
                                         <li className="breadcrumb-item">

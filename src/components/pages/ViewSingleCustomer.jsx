@@ -1,21 +1,13 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
-
 import { connect } from 'react-redux';
-
 import axios from "axios";
-
 import {DetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
-
 import ErrorModal from '../widgets/ErrorModal';
 import BlockingModal from '../widgets/BlockingModal';
 
 const lodashClonedeep = require("lodash.clonedeep");
 
-
-// const api = axios.create({
-//     baseURL: "http://localhost:8080/customers"
-// })
 
 
 const customerAddressElementsTemplate = [
@@ -58,10 +50,6 @@ class ViewSingleCustomer extends Component{
         };
     }
 
-
-
-
-
     componentDidMount(){
         
         this.loadCustomer()
@@ -79,7 +67,6 @@ class ViewSingleCustomer extends Component{
 
             const api = axios.create({
                 baseURL: "http://localhost:8080/customers",
-                //withCredentials: true,
                 headers: headers
             })
 
@@ -102,7 +89,6 @@ class ViewSingleCustomer extends Component{
     loadCustomerToDetailElements(loadedCustomer){
         let customer = lodashClonedeep(customerDetailsElementsTemplate)
         let addresses = []
-        //firstNameIndex = customer.find(element => element.title === "First Name");
         customer.map(element => {
             
             switch(element.id){
@@ -201,7 +187,6 @@ class ViewSingleCustomer extends Component{
 
                 const api = axios.create({
                     baseURL: "http://localhost:8080/customers",
-                    //withCredentials: true,
                     headers: headers
                 })
                 const res = await api.put(`/${this.state.selectedCustomerId}`, editedCustomer);
@@ -264,7 +249,6 @@ class ViewSingleCustomer extends Component{
     
                     const api = axios.create({
                         baseURL: "http://localhost:8080/customers",
-                        //withCredentials: true,
                         headers: headers
                     })
                     const res = await api.post(`/${this.state.selectedCustomerId}/address`, editedCustomerAddress);
@@ -291,7 +275,6 @@ class ViewSingleCustomer extends Component{
     
                     const api = axios.create({
                         baseURL: "http://localhost:8080/customers",
-                        //withCredentials: true,
                         headers: headers
                     })
                     const res = await api.put(`/${this.state.selectedCustomerId}/address/${addressId}`, editedCustomerAddress);
@@ -334,7 +317,6 @@ class ViewSingleCustomer extends Component{
 
         const api = axios.create({
             baseURL: "http://localhost:8080/customers",
-            //withCredentials: true,
             headers: headers
         })
         api.delete(`/${this.state.selectedCustomerId}`).then((res)=>{
@@ -363,13 +345,11 @@ class ViewSingleCustomer extends Component{
 
         const api = axios.create({
             baseURL: "http://localhost:8080/customers",
-            //withCredentials: true,
             headers: headers
         })
 
         api.delete(`/${this.state.selectedCustomerId}/address/${addressId}`).then((res)=>{
             if (res.data === "ok"){
-                //TODO delete address from state
                 var tempCustomerAddresses = this.state.customerAddresses
                 tempCustomerAddresses.splice(index, 1)
                 this.setState({customerAddresses: [...tempCustomerAddresses], deleting:false, blockingModalMessage:""})

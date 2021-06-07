@@ -1,23 +1,9 @@
 import React, { Component } from "react";
-
 import {withRouter} from "react-router-dom";
-
 import {Link} from "react-router-dom";
-
 import { connect } from 'react-redux';
 
-
-
 class LeftMenu extends Component {
-  // {
-  //   ordersSubmenuShow: false,
-  //   shipmentsSubmenuShow: false,
-  //   packagesSubmenuShow: false,
-  //   customersSubmenuShow: false,
-  //   vehiclesSubmenuShow: false,
-  //   employeesSubmenuShow: false
-  // }
-
 
   state = {
     visibleSubMenu: "",
@@ -25,12 +11,7 @@ class LeftMenu extends Component {
   };
 
   setSelectedMenu = (menuName) => {
-    //var selectedMenu = this.state.selectedMenu
-    //if (selectedMenu === menuName){
     this.setState({selectedMenu:menuName})
-    //}else{
-    //  this.setState({visibleSubMenu:subMenuName})
-    //}
   }
 
   toggleSubmenu = (subMenuName) => {
@@ -75,8 +56,6 @@ class LeftMenu extends Component {
     }
   };
 
-
-
   isMenuActive = (MenuName) => {
     if (this.state.selectedMenu === MenuName){
       return "active"
@@ -84,14 +63,6 @@ class LeftMenu extends Component {
       return ""
     }
   };
-
-  // ordersSubmenuShow: false,
-  // shipmentsSubmenuShow: false,
-  // packagesSubmenuShow: false,
-  // customersSubmenuShow: false,
-  // vehiclesSubmenuShow: false,
-  // employeesSubmenuShow: false
-
 
   render() {
 
@@ -121,7 +92,6 @@ class LeftMenu extends Component {
                 <ul className="navbar-nav">
 
                   <li className="nav-item">
-                    {/* <a href="" className="list-group-item list-group-item-action flex-column align-items-start active"> */}
                     <Link to="/" onClick={()=>{this.toggleSelectMenu("dashboard")}} className={"list-group-item list-group-item-action flex-column align-items-start " + this.isMenuActive("dashboard")}>
                       <div className="d-flex w-100 justify-content-start align-items-center">
                         <i className="fa fa-tv mr-3" aria-hidden="true"></i>
@@ -258,7 +228,6 @@ class LeftMenu extends Component {
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   user: state.login.user

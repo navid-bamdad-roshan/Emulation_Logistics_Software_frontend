@@ -1,24 +1,13 @@
-
-
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
-
 import React, {Component} from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory, { PaginationProvider, PaginationListStandalone } from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 //import { useHistory } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-
-
 import MainCard from '../MainCard';
-
-
-
-
-
-
 
 
 //  props:
@@ -32,9 +21,6 @@ class BootstrapTableCardWithFilters extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    // state={
-    //     rows: this.props.tableRows
-    // }
 
     handleClick(rowId){
         this.props.history.push(this.props.tableRowClickDestination + rowId);
@@ -43,19 +29,11 @@ class BootstrapTableCardWithFilters extends Component {
 
     render() {
 
-
-
-
-
         const rowEvents = {
             onClick: (e, row, rowIndex) => {
               console.log(`clicked on row with index: ${row.id}`);
-              //this.props.history.push(`/customers/view/${row.id}`);
               this.handleClick(row.id);
             },
-          //   onMouseEnter: (e, row, rowIndex) => {
-          //     console.log(`enter on row with index: ${row.id}`);
-          //   }
           };
 
           

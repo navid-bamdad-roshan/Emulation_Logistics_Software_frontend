@@ -1,23 +1,12 @@
 import React, {Component} from 'react';
 import {withRouter} from "react-router-dom";
-
 import { connect } from 'react-redux';
-
 import axios from "axios";
-
-
 import {InputDetailsCard} from '../widgets/DetailsElementCard/DetailsElementsCard';
 import ErrorModal from '../widgets/ErrorModal';
 
 
-// const api = axios.create({
-//     baseURL: "http://localhost:8080/customers"
-// })
-
 class AddNewCustomer extends Component{
-
-
-
 
     constructor(props){
         super(props);
@@ -28,7 +17,6 @@ class AddNewCustomer extends Component{
                                         {"title":"Phone", "value":"", "id":"phone", "colSize":"col-lg-6", "inputType":"tel", "requiredField":false},
                                     ];
 
-        
         this.state = {addCustomerErrorModalIsOpen:false, customerAddresses: [], customerDetailsElements:customerDetailsElements}
     }
 
@@ -80,7 +68,6 @@ class AddNewCustomer extends Component{
     
                 const api = axios.create({
                     baseURL: "http://localhost:8080/customers",
-                    //withCredentials: true,
                     headers: headers
                 })
                 
@@ -160,7 +147,6 @@ class AddNewCustomer extends Component{
 
         return( 
             <div className="container-fluid">
-                
                 {/* Modal to show error in customer insert */}
                 <ErrorModal 
                     show={this.state.addCustomerErrorModalIsOpen} 
